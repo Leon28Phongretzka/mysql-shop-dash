@@ -11,7 +11,15 @@ const pool = mysql.createPool({
 
 export async function getAddresses() {
     const [rows] = await pool.query('SELECT * FROM address');
-    return rows;
+    // return rows;
+    const addresses = await Promise.all(rows.map(async address => {
+        const country = await getCountryID(address.country_id);
+        return {
+            ...address,
+            country
+        }
+    }))
+    return addresses;
 }
 
 export async function getAddress(id) {
@@ -42,8 +50,7 @@ export async function getCountryID(id) {
     return rows[0].country_name;
 }
 
-const address = await getAddress(1);
-console.log(address);
-
+// const address = await getAddress(1);
+// console.log(address);
 
 

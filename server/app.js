@@ -1,31 +1,24 @@
-import express from 'express'
-import cors from 'cors'
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
 
-import { getAddresses, getAddress, createAddress } from './database.js'
+const indexRouter = require('./routes/index'); 
+const app = express();
 
-const app = express()
-app.use(cors({
-    origin: '*'
-}));
-app.use(express.json())
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.use('/api', indexRouter); 
 
-app.get("/addresses", async (req, res) => {
-  const addresses = await getAddresses()
-  res.send(addresses)
-})
-
-app.get("/address/:id", async(req, res) => {
-    const address = await getAddress(req.params.id)
-    res.send(address)
-    res.send(address.country_id);
-    
-})
-
-app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send('Something broke 💩')
-})
-  
+// app listening
 app.listen(3000, () => {
-    console.log('Server is running on port 8080')
-})
+    console.log(`Server is running on port 3000`);
+});
+
+module.exports = app;
