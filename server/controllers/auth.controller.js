@@ -33,16 +33,40 @@ exports.login = async (req, res) => {
     if (user) {
         const isMatched = await bcryptUtil.compareHash(req.body.password, user.password);
         if (isMatched) {
-            const token = await jwtUtil.createToken({ id: user.id });
+            const access_token = jwtUtil.createToken({ id: user.id });
+            const refresh_token = jwtUtil.createToken({ id: user.id }, jwtConfig.refresh_ttl);
+
+            await AuthService.storeAccessToken(user.id, refresh_token);
+
             return res.json({
-                access_token: token,
+                access_token: access_token,
+                refresh_token: refresh_token,
                 token_type: 'Bearer',
                 expires_in: jwtConfig.ttl
             });
         }
     }
-    return res.status(400).json({ message: 'Unauthorized.' });
+    return res.status(400).json({ message: 'Unauthorized 1.' });
 }
+
+exports.refreshToken = async (req, res) => {
+    const refreshToken = req.body.refresh_token;
+    const decoded = jwtUtil.verifyToken(refreshToken);
+    // console.log(decoded); console.log(decoded.id);
+    // console.log((decoded));
+    if(decoded && decoded.id) {
+        // console.log(isValidRefreshToken);
+        const new_access_token = jwtUtil.createToken({ id: decoded.id }, jwtConfig.ttl);
+        await AuthService.storeAccessToken(decoded.id, new_access_token);
+        return res.json({
+            access_token: new_access_token,
+            token_type: 'Bearer',
+            expires_in: jwtConfig.ttl
+        });
+    }
+    return res.status(400).json({ message: 'Unauthorized 2.' });
+}
+
 
 exports.getUser = async (req, res) => {
     const user = await AuthService.findUserById(req.user.id);  

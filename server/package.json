@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "database.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "devBase": "nodemon database.js"
   },
   "keywords": [],
   "author": "",

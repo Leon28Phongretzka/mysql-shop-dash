@@ -1,3 +1,4 @@
+const { token } = require('morgan');
 const UserModel = require('../models/user.model');
 const cacheUtil = require('../utils/cache.util');
 
@@ -16,6 +17,15 @@ exports.findUserByEmail = (email_address) => {
 exports.findUserById = (id) => {
     return UserModel.findByPk(id);
 }
+
+exports.storeAccessToken = (id, token) => {
+    return cacheUtil.get(`access_token:${id}`, token, 1000 * 60 * 60 * 24 * 30);
+}
+
+// exports.isValidRefreshToken = async (id, token) => {
+//     const isValid = await cacheUtil.get(`refresh_token:${id}`);
+//     return isValid === token;
+// };
 
 exports.logoutUser = (token, exp) => {
     const now = new Date();
