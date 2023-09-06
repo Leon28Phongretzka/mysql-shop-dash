@@ -14,6 +14,10 @@ exports.findUserByEmail = (email_address) => {
     })
 }
 
+exports.maxID = () => {
+    return UserModel.max('id');
+}
+
 exports.findUserById = (id) => {
     return UserModel.findByPk(id);
 }

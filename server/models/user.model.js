@@ -6,7 +6,7 @@ const User = sequelize.define('User', {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        defaultValue: 501
+        defaultValue: 503,
     },
     email_address: {
         type: DataTypes.STRING,

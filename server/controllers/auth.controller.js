@@ -3,7 +3,6 @@ const jwtConfig = require('../config/jwt.config');
 const bcryptUtil = require('../utils/bcrypt.util');
 const jwtUtil = require('../utils/jwt.util');
 
-
 exports.register = async (req, res) => { 
     
     const isExist = await AuthService.findUserByEmail(req.body.email_address);
@@ -13,9 +12,10 @@ exports.register = async (req, res) => {
         });
     }
     const hashedPassword = await bcryptUtil.createHash(req.body.password);
-    
+    // const maxID is the last id in the site_user table
+    const maxID = await AuthService.maxID();
     const userData = {
-        id: req.body.id,
+        id: maxID + 1,
         email_address: req.body.email_address,
         password: hashedPassword,
         phone_number: req.body.phone_number
