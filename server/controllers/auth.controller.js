@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
                 access_token: access_token,
                 refresh_token: refresh_token,
                 token_type: 'Bearer',
-                expires_in: jwtConfig.ttl
+                // expires_in: jwtConfig.ttl
             });
         }
     }

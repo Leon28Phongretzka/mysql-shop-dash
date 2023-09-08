@@ -6,6 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index'); 
+const dataRouter = require('./routes/data');
 const app = express();
 
 app.use(logger('dev'));
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/api', indexRouter); 
+app.use('/data', dataRouter);
 
 // app listening
 app.listen(3000, () => {

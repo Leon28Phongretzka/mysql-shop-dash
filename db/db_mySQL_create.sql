@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `ecommerce-mysql` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ecommerce-mysql`;
+CREATE DATABASE  IF NOT EXISTS `mydb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `mydb`;
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce-mysql
@@ -21,7 +21,7 @@ USE `ecommerce-mysql`;
 -- Table structure for table `country`
 --
 
-# DROP TABLE IF EXISTS `country`;
+drop TABLE IF EXISTS `country`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `country` (
@@ -35,7 +35,7 @@ CREATE TABLE `country` (
 -- Table structure for table `address`
 --
 
-# DROP TABLE IF EXISTS `address`;
+drop TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `address` (
@@ -76,7 +76,7 @@ UNLOCK TABLES;
 -- Table structure for table `order_line`
 --
 
-# DROP TABLE IF EXISTS `order_line`;
+drop TABLE IF EXISTS `order_line`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_line` (
@@ -106,7 +106,7 @@ UNLOCK TABLES;
 -- Table structure for table `order_status`
 --
 
-# DROP TABLE IF EXISTS `order_status`;
+drop TABLE IF EXISTS `order_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order_status` (
@@ -129,7 +129,7 @@ UNLOCK TABLES;
 -- Table structure for table `payment_type`
 --
 
-# DROP TABLE IF EXISTS `payment_type`;
+drop TABLE IF EXISTS `payment_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment_type` (
@@ -152,7 +152,7 @@ UNLOCK TABLES;
 -- Table structure for table `product`
 --
 
-# DROP TABLE IF EXISTS `product`;
+drop TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
@@ -180,7 +180,7 @@ UNLOCK TABLES;
 -- Table structure for table `product_category`
 --
 
-# DROP TABLE IF EXISTS `product_category`;
+drop TABLE IF EXISTS `product_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_category` (
@@ -204,7 +204,7 @@ UNLOCK TABLES;
 -- Table structure for table `product_config`
 --
 
-# DROP TABLE IF EXISTS `product_config`;
+drop TABLE IF EXISTS `product_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_config` (
@@ -230,7 +230,7 @@ UNLOCK TABLES;
 -- Table structure for table `product_item`
 --
 
-# DROP TABLE IF EXISTS `product_item`;
+drop TABLE IF EXISTS `product_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_item` (
@@ -258,7 +258,7 @@ UNLOCK TABLES;
 -- Table structure for table `promotion`
 --
 
-# DROP TABLE IF EXISTS `promotion`;
+drop TABLE IF EXISTS `promotion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `promotion` (
@@ -285,7 +285,7 @@ UNLOCK TABLES;
 -- Table structure for table `promotion_category`
 --
 
-# DROP TABLE IF EXISTS `promotion_category`;
+drop TABLE IF EXISTS `promotion_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `promotion_category` (
@@ -311,7 +311,7 @@ UNLOCK TABLES;
 -- Table structure for table `shipping_method`
 --
 
-# DROP TABLE IF EXISTS `shipping_method`;
+drop TABLE IF EXISTS `shipping_method`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shipping_method` (
@@ -335,7 +335,7 @@ UNLOCK TABLES;
 -- Table structure for table `shop_order`
 --
 
-# DROP TABLE IF EXISTS `shop_order`;
+drop TABLE IF EXISTS `shop_order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shop_order` (
@@ -372,7 +372,7 @@ UNLOCK TABLES;
 -- Table structure for table `shopping_cart`
 --
 
-# DROP TABLE IF EXISTS `shopping_cart`;
+drop TABLE IF EXISTS `shopping_cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shopping_cart` (
@@ -397,7 +397,7 @@ UNLOCK TABLES;
 -- Table structure for table `shopping_cart_item`
 --
 
-# DROP TABLE IF EXISTS `shopping_cart_item`;
+drop TABLE IF EXISTS `shopping_cart_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `shopping_cart_item` (
@@ -451,7 +451,7 @@ UNLOCK TABLES;
 -- Table structure for table `user_address`
 --
 
-# DROP TABLE IF EXISTS `user_address`;
+drop TABLE IF EXISTS `user_address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_address` (
@@ -486,7 +486,11 @@ CREATE TABLE `user_payment_method` (
   `user_id` int NOT NULL,
   `payment_type_id` int NOT NULL,
   `provider` varchar(255) NOT NULL,
+<<<<<<< HEAD
   `account_number` varchar(255) NOT NULL,
+=======
+  `account_number` VARCHAR(255) NOT NULL,
+>>>>>>> e8ad21bcb676da01a2db1e0fd193657265f761af
   `is_default` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `payment_type_user_payment_method` (`payment_type_id`),
@@ -509,7 +513,7 @@ UNLOCK TABLES;
 -- Table structure for table `user_review`
 --
 
-# DROP TABLE IF EXISTS `user_review`;
+drop TABLE IF EXISTS `user_review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_review` (
@@ -539,7 +543,7 @@ UNLOCK TABLES;
 -- Table structure for table `variation`
 --
 
-# DROP TABLE IF EXISTS `variation`;
+drop TABLE IF EXISTS `variation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `variation` (
@@ -565,7 +569,7 @@ UNLOCK TABLES;
 -- Table structure for table `variation_option`
 --
 
-# DROP TABLE IF EXISTS `variation_option`;
+drop TABLE IF EXISTS `variation_option`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `variation_option` (
