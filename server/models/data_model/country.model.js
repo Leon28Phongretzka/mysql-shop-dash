@@ -1,20 +1,20 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./connection');
+const sequelize = require('../connection');
 
-const ProductCategory = sequelize.define('ProductCategory', {
+const Country = sequelize.define('Country', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         defaultValue: 1,
     },
-    category_name: {
+    country_name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
 }, {
-    tableName: 'product_category',
+    tableName: 'country',
     timestamps: false
 });
 
-module.exports = ProductCategory;
+module.exports = Country;
