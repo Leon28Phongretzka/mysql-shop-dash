@@ -26,11 +26,6 @@ exports.storeAccessToken = (id, token) => {
     return cacheUtil.get(`access_token:${id}`, token, 1000 * 60 * 60 * 24 * 30);
 }
 
-// exports.isValidRefreshToken = async (id, token) => {
-//     const isValid = await cacheUtil.get(`refresh_token:${id}`);
-//     return isValid === token;
-// };
-
 exports.logoutUser = (token, exp) => {
     const now = new Date();
     const expire = new Date(exp * 1000);

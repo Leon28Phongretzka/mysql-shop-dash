@@ -9,9 +9,8 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_NAME
 }).promise()
 
-export async function getAddresses() {
+async function getAddresses() {
     const [rows] = await pool.query('SELECT * FROM address');
-    // return rows;
     const addresses = await Promise.all(rows.map(async address => {
         const country = await getCountryID(address.country_id);
         return {
@@ -22,13 +21,12 @@ export async function getAddresses() {
     return addresses;
 }
 
-export async function getAddress(id) {
+async function getAddress(id) {
     const [rows] = await pool.query(`
     select * 
     from address 
     where id = ?
     `, [id]);
-    // return rows[0];
     const country = await getCountryID(rows[0].country_id);
     return {
         ...rows[0],
@@ -36,7 +34,7 @@ export async function getAddress(id) {
     }
 }
 
-export async function createAddress(address) {
+async function createAddress(address) {
     const [result] = await pool.query(`
     insert into address (id, unit_number, street_number, address_line1, address_line2, city, region, postal_code, country_id)
     values (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -45,12 +43,10 @@ export async function createAddress(address) {
     return getNote(id)
 }
 
-export async function getCountryID(id) {
+async function getCountryID(id) {
     const [rows] = await pool.query('select * from country where id = ?', [id]);
     return rows[0].country_name;
 }
 
 // const address = await getAddress(1);
 // console.log(address);
-
-
