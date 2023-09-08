@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AddressController = require('../controllers/data/address.controller');
 const ProductCategoryController = require('../controllers/data/productCategory.controller');
+const VariationOptionController = require('../controllers/data/variationOption.controller');
 
 // Address Controller
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
@@ -14,5 +15,7 @@ router.get('/product-category/:id', (req, res) => {ProductCategoryController.get
 router.post('/product-category', (req, res) => {ProductCategoryController.createProductCategory(req, res);});
 router.put('/product-category/:id', (req, res) => {ProductCategoryController.updateProductCategory(req, res);});
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});
+
+router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
 
 module.exports = router;
