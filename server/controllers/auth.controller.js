@@ -2,6 +2,7 @@ const AuthService = require('../services/auth.service');
 const jwtConfig = require('../config/jwt.config');
 const bcryptUtil = require('../utils/bcrypt.util');
 const jwtUtil = require('../utils/jwt.util');
+require("dotenv").config();
 
 exports.register = async (req, res) => { 
     
