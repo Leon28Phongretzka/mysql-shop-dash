@@ -1,4 +1,4 @@
-const ProductCategoryModel = require('../../models/productCategory.model');
+const ProductCategoryModel = require('../../models/data_model/productCategory.model');
 const jwtConfig = require('../../config/jwt.config');
 const jwtUtil = require('../../utils/jwt.util');
 
