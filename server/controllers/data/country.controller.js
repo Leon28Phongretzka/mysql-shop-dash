@@ -1,6 +1,7 @@
 const CountryModel = require('../../models/data_model/country.model');
 const jwtConfig = require('../../config/jwt.config');
 const jwtUtil = require('../../utils/jwt.util');
+const { Op } = require("sequelize");
 
 exports.getMaxID = async (req, res) => {
     try {
@@ -69,17 +70,34 @@ exports.addCountry = async (req, res) => {
     }
 }
 
-exports.deleteAllDuplicateCountry = async ( req, res ) => {
-    // try {
-    //     await CountryModel.sequelize.query(
-    //         `DELETE c1 FROM country c1
-    //         INNER JOIN country c2 
-    //         WHERE c1.id < c2.id AND c1.country_name = c2.country_name;`
-    //     );
-    //     res.status(200).json({ message: "Duplicate countries deleted successfully." });
-    // } catch (error) {
-    //     res.status(500).json({
-    //         message: error.message || "Some error occurred while deleting duplicate countries."
-    //     });
-    // }
-}
+// Need to fix this function to delete all duplicate countries
+
+// exports.deleteAllDuplicateCountry = async ( req, res ) => {
+//     try {
+//         const countries = await CountryModel.findAll();
+//         const countryNames = [];
+//         countries.forEach(country => {
+//             countryNames.push(country.country_name);
+//         });
+//         const duplicateCountryNames = countryNames.filter((countryName, index) => {
+//             return countryNames.indexOf(countryName) !== index;
+//         });
+//         const duplicateCountries = await CountryModel.findAll({
+//             where: {
+//                 country_name: {
+//                     [Op.in]: duplicateCountryNames
+//                 }
+//             }
+//         });
+//         duplicateCountries.forEach(async (duplicateCountry) => {
+//             await duplicateCountry.destroy();
+//         });
+//         res.status(200).json({
+//             message: "Deleted all duplicate countries."
+//         });
+//     } catch (err) {
+//         res.status(500).json({
+//             message: err.message || "Some error occurred while retrieving country."
+//         })
+//     }
+// }
