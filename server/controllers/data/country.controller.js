@@ -24,3 +24,62 @@ exports.getAllCountry = async (req, res) => {
         });
     }
 }
+
+exports.getCountryById = async (req, res) => {
+    try {
+        const country = await CountryModel.findByPk(req.params.id);
+        if (!country) {
+            return res.status(404).json({
+                message: "Country not found with id " + req.params.id
+            });
+        }
+        res.status(200).json(country);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "Some error occurred while retrieving country."
+        });
+    }
+}
+
+exports.addCountry = async (req, res) => {
+    try {
+        const country_id = await CountryModel.findOne({
+            where: {
+                country_name: req.body.country_name
+            }
+        })
+        if(country_id) {
+            return res.status(400).json({
+                message: "Country already exists."
+            });
+        }
+        const maxID = await CountryModel.max('id');
+        const country = {
+            id: maxID + 1,
+            country_name: req.body.country_name
+        }
+        const createdCountry = await CountryModel.create(country);
+        console.log(country.id);
+        res.status(201).json(createdCountry);
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "Some error occurred while creating country."
+        });
+    }
+}
+
+exports.deleteAllDuplicateCountry = async ( req, res ) => {
+    // try {
+    //     await CountryModel.sequelize.query(
+    //         `DELETE c1 FROM country c1
+    //         INNER JOIN country c2 
+    //         WHERE c1.id < c2.id AND c1.country_name = c2.country_name;`
+    //     );
+    //     res.status(200).json({ message: "Duplicate countries deleted successfully." });
+    // } catch (error) {
+    //     res.status(500).json({
+    //         message: error.message || "Some error occurred while deleting duplicate countries."
+    //     });
+    // }
+}
