@@ -4,6 +4,8 @@ const router = express.Router();
 const CountryController = require('../controllers/data/country.controller');
 const ProductCategoryController = require('../controllers/data/productCategory.controller');
 const orderStatusController = require('../controllers/data/orderStatus.controller');
+const VariationOptionController = require('../controllers/data/variationOption.controller');
+
 
 const AddressController = require('../controllers/data/address.controller');
 
@@ -22,6 +24,7 @@ router.post('/product-category', (req, res) => {ProductCategoryController.create
 router.put('/product-category/:id', (req, res) => {ProductCategoryController.updateProductCategory(req, res);});
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});
 
+
 // Order Status Controller
 router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatus(req, res);});
 
@@ -30,6 +33,8 @@ router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatu
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
 router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res);});
 router.post('/address', (req, res) => {AddressController.createAddress(req, res);});
+
+router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
 
 
 module.exports = router;

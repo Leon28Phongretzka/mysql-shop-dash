@@ -481,12 +481,17 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `user_payment_method`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
+/*tranhiep111*/;
 CREATE TABLE `user_payment_method` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `payment_type_id` int NOT NULL,
   `provider` varchar(255) NOT NULL,
+<<<<<<< HEAD
+  `account_number` varchar(255) NOT NULL,
+=======
   `account_number` VARCHAR(255) NOT NULL,
+>>>>>>> e8ad21bcb676da01a2db1e0fd193657265f761af
   `is_default` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `payment_type_user_payment_method` (`payment_type_id`),
