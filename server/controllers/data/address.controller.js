@@ -31,7 +31,6 @@ exports.getCountryID = async (req, res) => {
 
 exports.getAllAddress = async (req, res) => {
     try {
-        // all rows and country_id -> country_name
         const addresses = await AddressModel.findAll();
         res.status(200).json(addresses);
 
@@ -67,10 +66,10 @@ exports.createAddress = async (req, res) => {
     })
 
     console.log(country_id);
-    
+    const maxID = await AddressModel.max('id');
     try {
         const address = {
-            id: req.body.id,
+            id: maxID + 1,
             unit_number: req.body.unit_number,
             street_number: req.body.street_number,
             address_line1: req.body.address_line1,
@@ -80,8 +79,13 @@ exports.createAddress = async (req, res) => {
             postal_code: req.body.postal_code,
             country_id: country_id.id,
         }
+        if(address) {
+            return res.status(400).json({
+                message: "Address already exists."
+            });
+        }
+        await AddressModel.create(address);
         res.status(201).json(address);
-
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while creating the address."

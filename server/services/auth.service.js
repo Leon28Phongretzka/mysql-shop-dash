@@ -1,5 +1,5 @@
 const { token } = require('morgan');
-const UserModel = require('../models/user.model');
+const UserModel = require('../models/auth_model/user.model');
 const cacheUtil = require('../utils/cache.util');
 
 exports.createUser = (user) => {
