@@ -1,0 +1,10 @@
+Các bảng đã hoàn thành tạo models và đã có controllers:
+1. Authentication ( Cái này không phải bảng ) - tương ứng với site_user
+2. Country
+3. productCategory
+4. Address
+5. Country
+6. Order Status
+
+
+Các bảng chưa hoàn thành là các bảng còn lại

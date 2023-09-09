@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./connection');
+const sequelize = require('../connection');
 
 const Address = sequelize.define('Address', {
     id: {
@@ -40,6 +40,10 @@ const Address = sequelize.define('Address', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    // country_name: {
+    //     type: DataTypes.STRING,
+    //     allowNull: true,
+    // }
 }, {
     tableName: 'address',
     timestamps: false

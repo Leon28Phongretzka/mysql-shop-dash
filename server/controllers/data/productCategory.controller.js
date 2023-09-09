@@ -1,4 +1,4 @@
-const ProductCategoryModel = require('../../models/productCategory.model');
+const ProductCategoryModel = require('../../models/data_model/productCategory.model');
 const jwtConfig = require('../../config/jwt.config');
 const jwtUtil = require('../../utils/jwt.util');
 
@@ -104,7 +104,7 @@ exports.deleteProductCategory = async (req, res) => {
         }
         await productCategory.destroy();
         res.status(204).json({ message: "Product category deleted successfully!" });
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while deleting the product category."
         });
