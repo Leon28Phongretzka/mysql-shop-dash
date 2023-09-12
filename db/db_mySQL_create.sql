@@ -488,10 +488,6 @@ CREATE TABLE `user_payment_method` (
   `payment_type_id` int NOT NULL,
   `provider` varchar(255) NOT NULL,
   `account_number` VARCHAR(255) NOT NULL,
-<<<<<<< HEAD
-
-=======
->>>>>>> 63538c5f1ff33fd727e921026dac3688f2ba3997
   `is_default` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `payment_type_user_payment_method` (`payment_type_id`),

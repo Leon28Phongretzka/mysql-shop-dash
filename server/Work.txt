@@ -3,7 +3,6 @@ Các bảng đã hoàn thành tạo models và đã có controllers:
 2. Country
 3. productCategory
 4. Address
-5. Country
 6. Order Status
 
 
