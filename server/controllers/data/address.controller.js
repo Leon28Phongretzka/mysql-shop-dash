@@ -3,16 +3,6 @@ const CountryModel = require('../../models/data_model/country.model');
 const jwtConfig = require('../../config/jwt.config');
 const jwtUtil = require('../../utils/jwt.util');
 
-exports.getMaxID = async (req, res) => {
-    try {
-        const maxID = await AddressModel.max('id');
-        res.status(200).json(maxID);
-    } catch (err) {
-        res.status(500).json({
-            message: err.message || "Some error occurred while retrieving address."
-        });
-    }
-}
 exports.getCountryID = async (req, res) => {
     try {
         const address = await AddressModel.findByPk(req.params.id);
@@ -64,8 +54,6 @@ exports.createAddress = async (req, res) => {
             country_name: req.body.country_name
         }
     })
-
-    console.log(country_id);
     const maxID = await AddressModel.max('id');
     try {
         const address = {
@@ -79,11 +67,12 @@ exports.createAddress = async (req, res) => {
             postal_code: req.body.postal_code,
             country_id: country_id.id,
         }
-        if(address) {
-            return res.status(400).json({
-                message: "Address already exists."
-            });
-        }
+        console.log(address);
+        // if(address) {
+        //     return res.status(400).json({
+        //         message: "Address already exists."
+        //     });
+        // }
         await AddressModel.create(address);
         res.status(201).json(address);
     } catch (err) {
