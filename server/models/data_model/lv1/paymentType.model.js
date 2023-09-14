@@ -1,24 +1,20 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../connection');
+const sequelize = require('../../connection');
 
-const ShippingMethod = sequelize.define('ShippingMethod', {
+const paymentType = sequelize.define('paymentType', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         defaultValue: 1,
     },
-    name: {
+    value: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    price: {
-        type: DataTypes.INTEGER,
-        allowNull:false,
-    },
 }, {
-    tableName: 'shipping_method',
+    tableName: 'payment_type',
     timestamps: false
 });
 
-module.exports = ShippingMethod;
+module.exports = paymentType;

@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const CountryController = require('../controllers/data/country.controller');
-const ProductCategoryController = require('../controllers/data/productCategory.controller');
-const orderStatusController = require('../controllers/data/orderStatus.controller');
-const PromotionController = require('../controllers/data/promotion.controller');
-const VariationOptionController = require('../controllers/data/variationOption.controller');
-const ShippingMedhodController = require('../controllers/data/shippingMethod.controller');
-const SiteUserController = require('../controllers/data/siteUser.controller');
+// Table without reference
+const CountryController = require('../controllers/data/lv1/country.controller');
+const ProductCategoryController = require('../controllers/data/lv1/productCategory.controller');
+const orderStatusController = require('../controllers/data/lv1/orderStatus.controller');
+const PromotionController = require('../controllers/data/lv1/promotion.controller');
+const ShippingMedhodController = require('../controllers/data/lv1/shippingMethod.controller');
 
-const AddressController = require('../controllers/data/address.controller');
-const SiteUser = require('../models/data_model/siteUser.model');
+// Table with reference lv2
+const AddressController = require('../controllers/data/lv2/address.controller');
+const ProductController = require('../controllers/data/lv2/product.controller');
+// Table with reference lv3
+const VariationOptionController = require('../controllers/data/lv3/variationOption.controller');
 
-/// Table without reference
+/// Table with reference
 
 // Country Controller
 router.get('/country', (req, res) => {CountryController.getAllCountry(req, res);});
@@ -26,7 +28,6 @@ router.get('/product-category/:id', (req, res) => {ProductCategoryController.get
 router.post('/product-category', (req, res) => {ProductCategoryController.createProductCategory(req, res);});
 router.put('/product-category/:id', (req, res) => {ProductCategoryController.updateProductCategory(req, res);});
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});
-
 
 // Order Status Controller
 router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatus(req, res);});
@@ -42,19 +43,24 @@ router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPr
 router.get('/shipping-method', (req, res) => {ShippingMedhodController.getAllShippingMethod(req, res);});
 router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getShippingMethodById(req, res);});
 
-//Site User Controller
-router.get('/site-user', (req, res) => {SiteUserController.getAllSiteUser(req, res);});
-router.get('/site-user/:id', (req, res) => {SiteUserController.getSiteUserById(req, res);});
-
-/// Table with reference
+/// Table with reference lv2
 // Address Controller
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
 router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res);});
 router.post('/address', (req, res) => {AddressController.createAddress(req, res);});
+router.put('/address/:id', (req, res) => {AddressController.updateAddress(req, res);});// Table with reference lv2
 
+// Product Controller
+router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);});
+router.get('/product/:id', (req, res) => {ProductController.getProductById(req, res);});
+router.post('/product', (req, res) => {ProductController.createProduct(req, res);});
+router.put('/product/:id', (req, res) => {ProductController.updateProduct(req, res);});
+
+// Table with reference lv3
 //VariationOption Controller
 router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
 router.get('/variation-option/:id', (req, res) => {VariationOptionController.getVariationOptionID(req, res)})
+router.post('/variation-option', (req, res) => {VariationOptionController.createVariationOption(req, res);});
 
 
 module.exports = router;

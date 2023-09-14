@@ -1,6 +1,6 @@
-const PromotionModel = require('../../models/data_model/promotion.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const PromotionModel = require('../../../models/data_model/lv1/promotion.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getMaxID = async (req, res) => {

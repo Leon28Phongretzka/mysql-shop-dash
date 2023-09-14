@@ -1,6 +1,6 @@
-const ShippingMethodModel = require('../../models/data_model/shippingMethod.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const ShippingMethodModel = require('../../../models/data_model/lv1/shippingMethod.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllShippingMethod = async (req, res) => {

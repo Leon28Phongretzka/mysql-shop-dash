@@ -1,6 +1,6 @@
-const orderStatusModel = require('../../models/data_model/orderStatus.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const orderStatusModel = require('../../../models/data_model/lv1/orderStatus.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 
 exports.getMaxID = async (req, res) => {
     try {
@@ -24,4 +24,5 @@ exports.getAllOrderStatus = async (req, res) => {
         });
     }
 }
+
 

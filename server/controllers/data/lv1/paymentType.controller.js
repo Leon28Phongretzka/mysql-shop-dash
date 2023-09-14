@@ -1,6 +1,6 @@
 const PaymentType = require('../../models/data/paymentType.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 
 exports.getMaxID = async (req, res) => {
     try {
