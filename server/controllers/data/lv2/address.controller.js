@@ -2,6 +2,8 @@ const AddressModel = require('../../../models/data_model/lv2/address.model');
 const CountryModel = require('../../../models/data_model/lv1/country.model');
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
+const { Op } = require("sequelize");
+
 
 exports.getCountryID = async (req, res) => {
     try {

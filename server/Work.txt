@@ -5,6 +5,11 @@ Các bảng đã hoàn thành tạo models và đã có controllers:
 4. Promotion
 5. Payment Type
 6. Order Status
+7. Shipping Method
+
+8. Address
+9. Product 
+10. Shopping Cart
 
 
 Các bảng chưa hoàn thành là các bảng còn lại
