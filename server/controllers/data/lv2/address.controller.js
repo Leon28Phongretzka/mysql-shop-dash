@@ -1,7 +1,9 @@
-const AddressModel = require('../../models/data_model/address.model');
-const CountryModel = require('../../models/data_model/country.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const AddressModel = require('../../../models/data_model/lv2/address.model');
+const CountryModel = require('../../../models/data_model/lv1/country.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
+const { Op } = require("sequelize");
+
 
 exports.getCountryID = async (req, res) => {
     try {
@@ -78,6 +80,36 @@ exports.createAddress = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while creating the address."
+        });
+    }
+}
+
+exports.updateAddress = async (req, res) => {
+    const country_id = await CountryModel.findOne({
+        where: {
+            country_name: req.body.country_name
+        }
+    })
+    try {
+        const address = {
+            unit_number: req.body.unit_number,
+            street_number: req.body.street_number,
+            address_line1: req.body.address_line1,
+            address_line2: req.body.address_line2,
+            city: req.body.city,
+            region: req.body.region,
+            postal_code: req.body.postal_code,
+            country_id: country_id.id,
+        }
+        const updatedAddress = await AddressModel.update(address, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json("Update complete");
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while updating the address."
         });
     }
 }

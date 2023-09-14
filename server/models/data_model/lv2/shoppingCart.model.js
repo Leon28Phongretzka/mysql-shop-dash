@@ -1,20 +1,19 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../connection');
+const sequelize = require('../../connection');
 
-const ProductCategory = sequelize.define('ProductCategory', {
+const shoppingCart = sequelize.define('shoppingCart', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         defaultValue: 1,
     },
-    category_name: {
-        type: DataTypes.STRING,
+    user_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {
-    tableName: 'product_category',
+    tableName: 'shopping_cart',
     timestamps: false
 });
-
-module.exports = ProductCategory;
+module.exports = shoppingCart;

@@ -1,6 +1,6 @@
 const PaymentType = require('../../models/data/paymentType.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 
 exports.getMaxID = async (req, res) => {
     try {
@@ -21,6 +21,23 @@ exports.getAllPaymentType = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving payment types."
+        });
+    }
+}
+
+exports.updatePaymentType = async (req, res) => {
+    try {
+        const paymentType = await PaymentType.findByPk(req.params.id);
+        if (!paymentType) {
+            return res.status(404).json({
+                message: "Payment type not found with id " + req.params.id
+            });
+        }
+        const updatedPaymentType = await paymentType.update(req.body);
+        res.status(200).json(updatedPaymentType);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving payment type."
         });
     }
 }

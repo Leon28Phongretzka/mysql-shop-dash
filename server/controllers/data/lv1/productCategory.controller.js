@@ -1,6 +1,6 @@
-const ProductCategoryModel = require('../../models/data_model/productCategory.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const ProductCategoryModel = require('../../../models/data_model/lv1/productCategory.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 
 exports.getMaxID = async (req, res) => {
     try {

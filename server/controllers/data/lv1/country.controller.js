@@ -1,6 +1,6 @@
-const CountryModel = require('../../models/data_model/country.model');
-const jwtConfig = require('../../config/jwt.config');
-const jwtUtil = require('../../utils/jwt.util');
+const CountryModel = require('../../../models/data_model/lv1/country.model');
+const jwtConfig = require('../../../config/jwt.config');
+const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getMaxID = async (req, res) => {
