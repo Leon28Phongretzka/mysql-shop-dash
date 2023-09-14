@@ -20,8 +20,5 @@
 ## 1. Re-factor the folder structure, split the model and controller to lv1, lv2,...like the structure I draw in the 'db' folder ( graphql.jpg )
 
 ## 2. The input form from the lv2, lv3...table not have the field references by the lower level ( usually some ID has FK), instead of it is the value of this ID is the value this ID references. For example, in the ``address``, we have a field ``country_id``. In the input form, we don't need to input the ``country_id``, instead of it, we need to input the ``country_name``. The server will find the ``country_id`` by the ``country_name`` and insert it into the ``address`` table.
-![Alt text](image.png)
-![Alt text](image1.png)
-![Alt text](image-1.png)
 
 In the logout test, you need to login an email, after that copy the ``access_token`` to the ``Auth`` and ``Bearer`` in the header of the logout test.
