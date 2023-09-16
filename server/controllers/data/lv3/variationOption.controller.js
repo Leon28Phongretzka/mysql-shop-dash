@@ -1,4 +1,4 @@
-const VariationOption = require("../../../models/variationOption.model");
+const VariationOption = require("../../../models/data_model/lv3/variationOption.model");
 
 exports.getAllVariationOption = async (req, res) => {
     try {

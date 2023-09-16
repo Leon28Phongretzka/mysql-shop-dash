@@ -13,6 +13,7 @@ const AddressController = require('../controllers/data/lv2/address.controller');
 const ProductController = require('../controllers/data/lv2/product.controller');
 const ShoppingCartController = require('../controllers/data/lv2/shoppingCart.controller');
 const VariationController = require('../controllers/data/lv2/variation.controller');
+const userPaymentMethodController = require('../controllers/data/lv2/userPaymentMethod.controller');
 
 // Table with reference lv3
 const VariationOptionController = require('../controllers/data/lv3/variationOption.controller');
@@ -48,12 +49,14 @@ router.delete('/promotion/:id', (req, res) => {PromotionController.deletePromoti
 router.get('/shipping-method', (req, res) => {ShippingMedhodController.getAllShippingMethod(req, res);});
 router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getShippingMethodById(req, res);});
 
+
 /// Table with reference lv2
 // Address Controller
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
 router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res);});
 router.post('/address', (req, res) => {AddressController.createAddress(req, res);});
 router.put('/address/:id', (req, res) => {AddressController.updateAddress(req, res);});
+router.delete('/address/:id', (req, res) => {AddressController.deleteAddress(req, res);});
 
 // Product Controller
 router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);});
@@ -67,6 +70,10 @@ router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppin
 //Variation Controller
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
+
+// userPaymentMethod Controller
+router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
+
 
 /// Table with reference lv3
 //VariationOption Controller
