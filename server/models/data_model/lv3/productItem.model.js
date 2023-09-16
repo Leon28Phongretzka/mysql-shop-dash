@@ -1,23 +1,32 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../connection');
 
-const VariationOption = sequelize.define('VariationOption', {
+const ProductItem = sequelize.define('ProductItem', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         defaultValue: 1,
     },
-    variation_id: {
+    product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    value: {
+    SKU: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    quantity_in_stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    price: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {
-    tableName: 'variation_option',
+    tableName: 'product_item',
     timestamps: false
 });
-module.exports = VariationOption;
+
+module.exports = ProductItem;
