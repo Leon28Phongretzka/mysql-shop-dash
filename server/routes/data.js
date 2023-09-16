@@ -14,9 +14,11 @@ const ProductController = require('../controllers/data/lv2/product.controller');
 const ShoppingCartController = require('../controllers/data/lv2/shoppingCart.controller');
 const VariationController = require('../controllers/data/lv2/variation.controller');
 const userPaymentMethodController = require('../controllers/data/lv2/userPaymentMethod.controller');
+const promotionCategoryController = require('../controllers/data/lv2/promotionCategory.controller');
 
 // Table with reference lv3
 const VariationOptionController = require('../controllers/data/lv3/variationOption.controller');
+const ProductItemController = require('../controllers/data/lv3/productItem.controller');
 
 /// Table with reference
 
@@ -74,12 +76,19 @@ router.get('/variation/:id', (req, res) => {VariationController.getVariationByID
 // userPaymentMethod Controller
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 
+// promotionCategory Controller
+router.get('/promotion-category', (req, res) => {promotionCategoryController.getAllPromotionCategory(req, res);});
+router.get('/promotion-category/:id', (req, res) => {promotionCategoryController.getPromotionCategoryById(req, res);});
+router.post('/promotion-category', (req, res) => {promotionCategoryController.createPromotionCategory(req, res);});
+router.put('/promotion-category/:id', (req, res) => {promotionCategoryController.updatePromotionCategory(req, res);});
+router.delete('/promotion-category/:id', (req, res) => {promotionCategoryController.deletePromotionCategory(req, res);});
 
 /// Table with reference lv3
-//VariationOption Controller
+// VariationOption Controller
 router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
 router.get('/variation-option/:id', (req, res) => {VariationOptionController.getVariationOptionID(req, res)})
 router.post('/variation-option', (req, res) => {VariationOptionController.createVariationOption(req, res);});
 
 
+// Product Item Controller
 module.exports = router;

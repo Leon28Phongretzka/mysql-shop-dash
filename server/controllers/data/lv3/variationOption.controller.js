@@ -1,21 +1,21 @@
-const VariationOption = require("../../../models/data_model/lv3/variationOption.model");
-
+const VariationOptionModel = require("../../../models/data_model/lv3/variationOption.model");
+const VariationModel = require("../../../models/data_model/lv2/variation.model");
+const ProductCategoryModel = require("../../../models/data_model/lv1/productCategory.model")
 exports.getAllVariationOption = async (req, res) => {
     try {
-        const variationOptions = await VariationOption.findAll();
+        const variationOptions = await VariationOptionModel.findAll();
         res.status(200).json(variationOptions)
         
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred."
         });
-        //console.log(err);
     }
 }
 
 exports.getVariationOptionID = async (req, res) => {
     try {
-        const variationOptions = await VariationOption.findByPk(req.params.id);
+        const variationOptions = await VariationOptionModel.findByPk(req.params.id);
         if (!variationOptions) {
             return res.status(404).json({
                 message: "Address not found with id " + req.params.id
@@ -30,19 +30,27 @@ exports.getVariationOptionID = async (req, res) => {
 }
 
 exports.createVariationOption = async (req, res) => {
+    const variationOption = await VariationModel.findOne({
+        where: {
+            name: req.body.variation_name
+        }
+    })
     try {
-        const maxID = await VariationOption.max('id');
+        const maxID = await VariationOptionModel.max('id');
         const variationOption = {
             id: maxID + 1,
-            variation_id: req.body.variation_id,
+            variation_id: variationOption.id,
             value: req.body.value
         }
         const createdVariationOption = await VariationOption.create(variationOption);
         res.status(201).json(createdVariationOption);
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving VariationOption."
         }); 
     }
 }
+
+
+
 
