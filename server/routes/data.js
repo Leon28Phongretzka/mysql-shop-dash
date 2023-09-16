@@ -12,7 +12,7 @@ const ShippingMedhodController = require('../controllers/data/lv1/shippingMethod
 const AddressController = require('../controllers/data/lv2/address.controller');
 const ProductController = require('../controllers/data/lv2/product.controller');
 const ShoppingCartController = require('../controllers/data/lv2/shoppingCart.controller');
-
+const VariationController = require('../controllers/data/lv2/variation.controller');
 
 // Table with reference lv3
 const VariationOptionController = require('../controllers/data/lv3/variationOption.controller');
@@ -63,6 +63,10 @@ router.put('/product/:id', (req, res) => {ProductController.updateProduct(req, r
 
 // Shopping Cart Controller
 router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppingCarts(req, res);});
+
+//Variation Controller
+router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
+router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
 
 /// Table with reference lv3
 //VariationOption Controller
