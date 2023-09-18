@@ -23,10 +23,68 @@ const ProductItemController = require('../controllers/data/lv3/productItem.contr
 /// Table with reference
 
 // Country Controller
-router.get('/country', (req, res) => {CountryController.getAllCountry(req, res);});
-router.get('/country/:id', (req, res) => {CountryController.getCountryById(req, res);});
-router.post('/country', (req, res) => {CountryController.addCountry(req, res);});
-// router.delete('/duplicate-country', (req, res) => {CountryController.deleteAllDuplicateCountry(req, res);});
+/**
+ * @swagger
+ * /data/country:
+ *   get:
+ *     summary: Lấy danh sách quốc gia
+ *     description: Trả về danh sách tất cả quốc gia.
+ *     responses:
+ *       200:
+ *         description: Thành công. Trả về danh sách quốc gia.
+ *       500:
+ *         description: Lỗi máy chủ nội bộ.
+ */
+router.get('/country', (req, res) => {
+    CountryController.getAllCountry(req, res);
+  });
+  
+/**
+* @swagger
+* /data/country/{id}:
+*   get:
+*     summary: Lấy thông tin quốc gia theo ID
+*     description: Trả về thông tin quốc gia dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của quốc gia
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin quốc gia.
+*       404:
+*         description: Không tìm thấy quốc gia theo ID.
+*/
+router.get('/country/:id', (req, res) => {
+    CountryController.getCountryById(req, res);
+});
+  
+/**
+* @swagger
+* /data/country:
+*   post:
+*     summary: Thêm quốc gia mới
+*     description: Thêm một quốc gia mới vào hệ thống.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Country'
+*     responses:
+*       201:
+*         description: Thành công. Trả về thông tin quốc gia đã được thêm.
+*       400:
+*         description: Lỗi yêu cầu không hợp lệ.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
+router.post('/country', (req, res) => {
+    CountryController.addCountry(req, res);
+});
 
 // Product Category Controller
 router.get('/product-category', (req, res) => {ProductCategoryController.getAllProductCategory(req, res);});
@@ -69,6 +127,10 @@ router.delete('/product/:id', (req, res) => {ProductController.deleteProduct(req
 
 // Shopping Cart Controller
 router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppingCarts(req, res);});
+router.get('/shopping-cart/:id', (req, res) => {ShoppingCartController.getShoppingCartsByUserID(req, res);});
+router.post('/shopping-cart', (req, res) => {ShoppingCartController.createShoppingCart(req, res);});
+router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateShoppingCart(req, res);});
+
 
 //Variation Controller
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
@@ -76,6 +138,7 @@ router.get('/variation/:id', (req, res) => {VariationController.getVariationByID
 router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});
 router.put('/variation/:id', (req, res) => {VariationController.updateVariation(req, res);});
 router.delete('/variation/:id', (req, res) => {VariationController.deleteVariation(req, res);});
+
 // userPaymentMethod Controller
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 
