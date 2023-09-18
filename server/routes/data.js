@@ -91,4 +91,8 @@ router.post('/variation-option', (req, res) => {VariationOptionController.create
 
 
 // Product Item Controller
+router.get('/product-item', (req, res) => {ProductItemController.getAllProductItem(req, res);});
+router.get('/product-item/:id', (req, res) => {ProductItemController.getProductItemByID(req, res);});
+
+
 module.exports = router;
