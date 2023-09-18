@@ -10,6 +10,7 @@ Các bảng đã hoàn thành tạo models và đã có controllers:
 8. Address
 9. Product 
 10. Shopping Cart
+11. userPaymentMethod
 
 
 Các bảng chưa hoàn thành là các bảng còn lại
