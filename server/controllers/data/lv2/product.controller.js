@@ -94,3 +94,24 @@ exports.updateProduct = async (req, res) => {
         });
     }
 }
+
+exports.deleteProduct = async (req, res) => {
+    try {
+        const product = await productModel.findByPk(req.params.id);
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found with id " + req.params.id
+            });
+        }
+        const productDelete = await productModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json("Delete complete");
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while deleting the product."
+        });
+    }
+}

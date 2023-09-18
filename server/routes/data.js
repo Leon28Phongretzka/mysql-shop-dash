@@ -65,6 +65,7 @@ router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);
 router.get('/product/:id', (req, res) => {ProductController.getProductById(req, res);});
 router.post('/product', (req, res) => {ProductController.createProduct(req, res);});
 router.put('/product/:id', (req, res) => {ProductController.updateProduct(req, res);});
+router.delete('/product/:id', (req, res) => {ProductController.deleteProduct(req, res);});
 
 // Shopping Cart Controller
 router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppingCarts(req, res);});
@@ -72,7 +73,9 @@ router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppin
 //Variation Controller
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
-
+router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});
+router.put('/variation/:id', (req, res) => {VariationController.updateVariation(req, res);});
+router.delete('/variation/:id', (req, res) => {VariationController.deleteVariation(req, res);});
 // userPaymentMethod Controller
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 
@@ -88,7 +91,7 @@ router.delete('/promotion-category/:id', (req, res) => {promotionCategoryControl
 router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
 router.get('/variation-option/:id', (req, res) => {VariationOptionController.getVariationOptionID(req, res)})
 router.post('/variation-option', (req, res) => {VariationOptionController.createVariationOption(req, res);});
-
+router.put('/variation-option/:id', (req, res) => {VariationOptionController.updateVariationOption(req, res);});
 
 // Product Item Controller
 module.exports = router;
