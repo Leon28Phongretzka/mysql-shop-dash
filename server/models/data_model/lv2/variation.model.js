@@ -12,7 +12,6 @@ const Variation = sequelize.define('Variation', {
         type: DataTypes.INTEGER,
         allowNull: false,
         // foreignKey: true,
-        
     },
     name: {
         type: DataTypes.STRING,
