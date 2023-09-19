@@ -3,7 +3,6 @@ const UserModel = require('../../../models/auth_model/user.model');
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
-const User = require('../../../models/auth_model/user.model');
 
 exports.getMaxID = async (req, res) => {
     try {
@@ -31,7 +30,7 @@ exports.getShoppingCartsByUserID = async (req, res) => {
     try {
         const Carts = await shoppingCartModel.findAll({
             where: {
-                userID: req.params.userID
+                user_id: req.params.id
             }
         });
         res.status(200).json(Carts);
@@ -81,6 +80,26 @@ exports.updateShoppingCart = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while updating the Cart."
+        });
+    }
+}
+
+exports.deleteShoppingCart = async (req, res) => {
+    try {
+        const cart = await shoppingCartModel.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        if (cart) {
+            await cart.destroy();
+            res.status(200).json('Cart deleted');
+        } else {
+            res.status(404).json('Cart not found');
+        }
+    } catch(err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while deleting the Cart."
         });
     }
 }
