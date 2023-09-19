@@ -17,4 +17,18 @@ exports.getAllProductItem = async (req, res) => {
         });
     }
 }
-
+exports.getProductItemByID = async (req, res) => {
+    try {
+        const ProductItem = await productItemModel.findByPk(req.params.id);
+        if (!ProductItem) {
+            return res.status(404).json({
+                message: "Address not found with id " + req.params.id
+            });
+        }
+        res.status(200).json(ProductItem);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving ProductItem."
+        }); 
+    }
+}
