@@ -1,4 +1,4 @@
-const OrderLineModel = require('../../../models/data_model/lv3/orderLine.model');
+const OrderLineModel = require('../../../models/data_model/lv4/orderLine.model');
 
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');

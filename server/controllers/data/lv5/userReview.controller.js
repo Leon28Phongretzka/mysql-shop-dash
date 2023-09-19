@@ -1,4 +1,4 @@
-const UserReviewModel = require('../../../models/data_model/lv3/userReview.model');
+const UserReviewModel = require('../../../models/data_model/lv5/userReview.model');
 
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
