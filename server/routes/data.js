@@ -22,13 +22,15 @@ const ProductItemController = require('../controllers/data/lv3/productItem.contr
 const UserAddressController = require('../controllers/data/lv3/userAddress.controller');
 const shopOrderController = require('../controllers/data/lv3/shopOrder.controller');
 
-const OrderLineController = require('../controllers/data/lv3/orderLine.controller');
-const ShoppingCartItemController = require('../controllers/data/lv3/shoppingCartItem.controller');
-const ProductConfigController = require('../controllers/data/lv3/productConfig.controller');
-const UserReviewController = require('../controllers/data/lv3/userReview.controller');
+// Table with reference lv4
+const OrderLineController = require('../controllers/data/lv4/orderLine.controller');
+const ShoppingCartItemController = require('../controllers/data/lv4/shoppingCartItem.controller');
+const ProductConfigController = require('../controllers/data/lv4/productConfig.controller');
 
-/// Table with reference
+// Table with reference lv5
+const UserReviewController = require('../controllers/data/lv5/userReview.controller');
 
+/// Table without reference
 // Country Controller
 /**
  * @swagger
@@ -109,6 +111,7 @@ router.get('/payment-type', (req, res) => {PaymentTypeController.getAllPaymentTy
 // Promotion Controller
 router.get('/promotion', (req, res) => {PromotionController.getAllPromotion(req, res);});
 router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPromotion(req, res);});
+router.post('/promotion', (req, res) => {PromotionController.createPromotion(req, res);});
 router.delete('/expired-promotion', (req, res) => {PromotionController.deleteExpiredPromotion(req, res);});
 router.delete('/promotion/:id', (req, res) => {PromotionController.deletePromotion(req, res);});
 
@@ -138,7 +141,6 @@ router.get('/shopping-cart/:id', (req, res) => {ShoppingCartController.getShoppi
 router.post('/shopping-cart', (req, res) => {ShoppingCartController.createShoppingCart(req, res);});
 router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateShoppingCart(req, res);});
 
-
 //Variation Controller
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
@@ -166,27 +168,36 @@ router.put('/variation-option/:id', (req, res) => {VariationOptionController.upd
 // Product Item Controller
 router.get('/product-item', (req, res) => {ProductItemController.getAllProductItem(req, res);});
 router.get('/product-item/:id', (req, res) => {ProductItemController.getProductItemByID(req, res);});
+router.post('/product-item', (req, res) => {ProductItemController.createProductItem(req, res);});
+router.put('/product-item/:id', (req, res) => {ProductItemController.updateProductItem(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
+router.delete('/product-item/:id', (req, res) => {ProductItemController.deleteProductItem(req, res);});
 
-//User Address Controller
+// User Address Controller
 router.get('/user-address', (req, res) => {UserAddressController.getAllUserAddress(req, res);});
-
-//Shop Order Controller
+router.get('/user-address/:id', (req, res) => {UserAddressController.getUserAddressByID(req, res);});
+// Shop Order Controller
 router.get('/shop-order', (req, res) => {shopOrderController.getAllShopOrder(req, res);});
 router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByID(req, res);});
-module.exports = router;
 
-//Order Line Controller
+/// Table with reference lv4
+// Order Line Controller
 router.get('/order-line', (req, res) => {OrderLineController.getAllOrderLine(req, res);});
 router.get('/order-line/:id', (req, res) => {OrderLineController.getOrderLineByID(req, res);});
+router.post('/order-line', (req, res) => {OrderLineController.createOrderLine(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
+router.put('/order-line/:id', (req, res) => {OrderLineController.updateOrderLine(req, res);});
 
-//Shopping Cart Item Controller
+// Shopping Cart Item Controller
 router.get('/shopping-cart-item', (req, res) => {ShoppingCartItemController.getAllShoppingCartItem(req, res);});
 router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.getShoppingCartItemByID(req, res);});
-
-//Product Config Controller
+// router.post()
+// Product Config Controller
 router.get('/product-config', (req, res) => {ProductConfigController.getAllProductConfig(req, res);});
-// router.get('/product-config/:id', (req, res) => {ProductConfigController.getProductConfigByID(req, res);});
+router.post('/product-config', (req, res) => {ProductConfigController.createProductConfig(req, res);});
+router.put('/product-config/:id', (req, res) => {ProductConfigController.updateProductConfig(req, res);});
 
-//User Review
+/// Table with reference lv5
+// User Review
 router.get('/user-review', (req, res) => {UserReviewController.getAllUserReview(req, res);});
 router.get('/user-review/:id', (req, res) => {UserReviewController.getUserReviewByID(req, res);});
+
+module.exports = router;

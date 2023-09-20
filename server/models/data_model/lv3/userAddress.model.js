@@ -6,7 +6,7 @@ const UserAddress = sequelize.define('UserAddress', {
         type: DataTypes.INTEGER,
         allowNull:false,
         primaryKey: true,
-        // defaultValue: 1,
+        defaultValue: 1,
     },
     is_default: {
         type: DataTypes.TINYINT,
@@ -15,7 +15,6 @@ const UserAddress = sequelize.define('UserAddress', {
     address_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
     },
    
 }, {

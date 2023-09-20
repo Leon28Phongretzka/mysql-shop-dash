@@ -43,6 +43,26 @@ exports.getExpriedPromotion = async (req, res) => {
     }
 }
 
+exports.createPromotion = async( req, res) => {
+    try {
+        const maxID = await PromotionModel.max('id');
+        const promotion = {
+            id: maxID + 1,
+            name: req.body.name,
+            description: req.body.description,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
+            discount: req.body.discount,
+        }
+        const newPromotion = await PromotionModel.create(promotion);
+        res.status(200).json(newPromotion);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while creating promotion."
+        });
+    }
+}
+
 // exports.deleteExpiredPromotion = async (req, res) => {
 //     try {
 //         const currentDate = new Date();
