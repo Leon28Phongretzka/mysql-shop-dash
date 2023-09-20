@@ -11,23 +11,18 @@ const OrderLine = sequelize.define('OrderLine', {
     product_item_id: {
         type: DataTypes.INTEGER,
         allowNull:false,
-        primaryKey:true,
-        
     },
     order_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true,
     },
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        
     },
     price: {
         type: DataTypes.INTEGER,
         allowNull: false,
-       
     },
 }, {
     tableName: 'order_line',

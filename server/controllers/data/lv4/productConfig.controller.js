@@ -1,6 +1,7 @@
 const ProductConfigModel = require('../../../models/data_model/lv4/productConfig.model');
 const productItemModel = require('../../../models/data_model/lv3/productItem.model');
 const variationOptionModel = require('../../../models/data_model/lv3/variationOption.model');
+
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
@@ -20,9 +21,12 @@ exports.getAllProductConfig = async (req, res) => {
 
 exports.createProductConfig = async (req, res) => {
     try {
-        const ProductConfig = await ProductConfigModel.create(req.body);
-        console.log(req.body);
-        res.status(200).json(ProductConfig);
+        const ProductConfig = {
+            product_item_id: req.body.product_item_id,
+            variation_option_id: req.body.variation_option_id,
+        }
+        const newProductConfig = await ProductConfigModel.create(ProductConfig);
+        res.status(200).json(newProductConfig);
 
     } catch (err) {
         res.status(500).json({

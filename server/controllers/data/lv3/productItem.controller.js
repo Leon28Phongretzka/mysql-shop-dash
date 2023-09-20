@@ -32,3 +32,69 @@ exports.getProductItemByID = async (req, res) => {
         }); 
     }
 }
+
+exports.createProductItem = async (req, res) => {
+    try {
+        const product_id = await productModel.findOne({
+            where: {
+                name: req.body.product_name
+            }
+        })
+        const maxID = await productItemModel.max('id');
+        const ProductItem = {
+            id: maxID + 1,
+            product_id: product_id.id,
+            SKU: req.body.SKU,
+            quantity_in_stock: req.body.quantity_in_stock,
+            price: req.body.price,
+        }
+        const newProductItem = await productItemModel.create(ProductItem);
+        res.status(200).json(newProductItem);
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while creating the ProductItem."
+        });
+    }
+}
+
+exports.updateProductItem = async (req, res) => {
+    try {
+        const product_id = await productModel.findOne({
+            where: {
+                name: req.body.product_name
+            }
+        })
+        const ProductItem = {
+            product_id: product_id.id,
+            SKU: req.body.SKU,
+            quantity_in_stock: req.body.quantity_in_stock,
+            price: req.body.price,
+        }
+        const updatedProductItem = await productItemModel.update(ProductItem, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json(updatedProductItem); 
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while updating the ProductItem."
+        });
+    }
+}
+
+exports.deleteProductItem = async (req, res) => {
+    try {
+        const deletedProductItem = await productItemModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json(deletedProductItem);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while deleting the ProductItem."
+        });
+    }
+}

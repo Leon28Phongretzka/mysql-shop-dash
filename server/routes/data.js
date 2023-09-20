@@ -168,10 +168,13 @@ router.put('/variation-option/:id', (req, res) => {VariationOptionController.upd
 // Product Item Controller
 router.get('/product-item', (req, res) => {ProductItemController.getAllProductItem(req, res);});
 router.get('/product-item/:id', (req, res) => {ProductItemController.getProductItemByID(req, res);});
+router.post('/product-item', (req, res) => {ProductItemController.createProductItem(req, res);});
+router.put('/product-item/:id', (req, res) => {ProductItemController.updateProductItem(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
+router.delete('/product-item/:id', (req, res) => {ProductItemController.deleteProductItem(req, res);});
 
-//User Address Controller
+// User Address Controller
 router.get('/user-address', (req, res) => {UserAddressController.getAllUserAddress(req, res);});
-
+router.get('/user-address/:id', (req, res) => {UserAddressController.getUserAddressByID(req, res);});
 // Shop Order Controller
 router.get('/shop-order', (req, res) => {shopOrderController.getAllShopOrder(req, res);});
 router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByID(req, res);});
@@ -180,6 +183,8 @@ router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByI
 // Order Line Controller
 router.get('/order-line', (req, res) => {OrderLineController.getAllOrderLine(req, res);});
 router.get('/order-line/:id', (req, res) => {OrderLineController.getOrderLineByID(req, res);});
+router.post('/order-line', (req, res) => {OrderLineController.createOrderLine(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
+router.put('/order-line/:id', (req, res) => {OrderLineController.updateOrderLine(req, res);});
 
 // Shopping Cart Item Controller
 router.get('/shopping-cart-item', (req, res) => {ShoppingCartItemController.getAllShoppingCartItem(req, res);});
@@ -187,8 +192,8 @@ router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.
 // router.post()
 // Product Config Controller
 router.get('/product-config', (req, res) => {ProductConfigController.getAllProductConfig(req, res);});
-router.get('/product-config/:id', (req, res) => {ProductConfigController.getProductConfigByID(req, res);});
 router.post('/product-config', (req, res) => {ProductConfigController.createProductConfig(req, res);});
+router.put('/product-config/:id', (req, res) => {ProductConfigController.updateProductConfig(req, res);});
 
 /// Table with reference lv5
 // User Review

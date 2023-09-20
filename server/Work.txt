@@ -1,16 +1,28 @@
 Các bảng đã hoàn thành tạo models và đã có controllers:
 1. Authentication ( Cái này không phải bảng ) - tương ứng với site_user
 2. Country
-3. productCategory
-4. Promotion
-5. Payment Type
-6. Order Status
+3. Order Status
+4. Payment Type
+5. Product Category
+6. Promotion
 7. Shipping Method
 
 8. Address
-9. Product 
-10. Shopping Cart
-11. userPaymentMethod
+9. Product
+10. Promo Category
+11. Shopping Cart
+12. User Payment Method
+13. Variation
 
+14. Product Item
+15.
+16.
+17.
+
+18.
+19.
+20.
+
+21.
 
 Các bảng chưa hoàn thành là các bảng còn lại
