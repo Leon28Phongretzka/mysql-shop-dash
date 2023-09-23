@@ -15,12 +15,12 @@ Các bảng đã hoàn thành tạo models và đã có controllers:
 13. Variation
 
 14. Product Item
-15.
-16.
-17.
+15. User Address
+16. Shop Order
+17. Variation Option
 
-18.
-19.
+18. Order Line
+19. Product Config
 20.
 
 21.
