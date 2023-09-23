@@ -209,5 +209,8 @@ router.delete('/product-config/:id', (req, res) => {ProductConfigController.dele
 // User Review
 router.get('/user-review', (req, res) => {UserReviewController.getAllUserReview(req, res);});
 router.get('/user-review/:id', (req, res) => {UserReviewController.getUserReviewByID(req, res);});
+router.post('/user-review', (req, res) => {UserReviewController.createUserReview(req, res);});
+router.put('/user-review/:id', (req, res) => {UserReviewController.updateUserReview(req, res);});
+router.delete('/user-review/:id', (req, res) => {UserReviewController.deleteUserReview(req, res);});
 
 module.exports = router;
