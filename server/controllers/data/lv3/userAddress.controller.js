@@ -9,7 +9,6 @@ exports.getAllUserAddress = async (req, res) => {
     try {
         const UserAddresss = await UserAddressModel.findAll();
         res.status(200).json(UserAddresss);
-
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving UserAddresss."
@@ -38,5 +37,53 @@ exports.getUserAddressByID = async (req, res) => {
 }
 
 exports.createUserAddress = async (req, res) => {
-    
+    try {
+        const Address = await AddressModel.create({
+            
+        })
+        const UserAddress = await UserAddressModel.create({
+            user_id: req.body.user_id,
+            address_id: req.body.address_id,
+            is_default: req.body.is_default,
+        });
+        res.status(200).json(UserAddress);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving UserAddress."
+        })
+    }
+}
+
+exports.updateUserAddress = async (req, res) => {
+    try {
+        const UserAddress = await UserAddressModel.update({
+            user_id: req.body.user_id,
+            address_id: req.body.address_id,
+            is_default: req.body.is_default,
+        }, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json(UserAddress);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving UserAddress."
+        })
+    }
+}
+
+exports.deleteUserAddress = async (req, res) => {
+    try {
+        const UserAddress = await UserAddressModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).json(UserAddress);
+    } catch (err) {
+        res.status(500).json({
+            message: err.message || "Some error occurred while retrieving UserAddress."
+        })
+    }
 }

@@ -175,9 +175,15 @@ router.delete('/product-item/:id', (req, res) => {ProductItemController.deletePr
 // User Address Controller
 router.get('/user-address', (req, res) => {UserAddressController.getAllUserAddress(req, res);});
 router.get('/user-address/:id', (req, res) => {UserAddressController.getUserAddressByID(req, res);});
+router.post('/user-address', (req, res) => {UserAddressController.createUserAddress(req, res);});
+router.put('/user-address/:id', (req, res) => {UserAddressController.updateUserAddress(req, res);});
+router.delete('/user-address/:id', (req, res) => {UserAddressController.deleteUserAddress(req, res);});
+
 // Shop Order Controller
 router.get('/shop-order', (req, res) => {shopOrderController.getAllShopOrder(req, res);});
 router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByID(req, res);});
+router.post('/shop-order', (req, res) => {shopOrderController.createShopOrder(req, res);});
+router.put('/shop-order/:id', (req, res) => {shopOrderController.updateShopOrder(req, res);});
 
 /// Table with reference lv4
 // Order Line Controller
@@ -189,11 +195,15 @@ router.put('/order-line/:id', (req, res) => {OrderLineController.updateOrderLine
 // Shopping Cart Item Controller
 router.get('/shopping-cart-item', (req, res) => {ShoppingCartItemController.getAllShoppingCartItem(req, res);});
 router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.getShoppingCartItemByID(req, res);});
-// router.post()
+router.post('/shopping-cart-item', (req, res) => {ShoppingCartItemController.createShoppingCartItem(req, res);});   
+router.put('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.updateShoppingCartItem(req, res);});
+router.delete('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.deleteShoppingCartItem(req, res);});
+
 // Product Config Controller
 router.get('/product-config', (req, res) => {ProductConfigController.getAllProductConfig(req, res);});
 router.post('/product-config', (req, res) => {ProductConfigController.createProductConfig(req, res);});
 router.put('/product-config/:id', (req, res) => {ProductConfigController.updateProductConfig(req, res);});
+router.delete('/product-config/:id', (req, res) => {ProductConfigController.deleteProductConfig(req, res);});
 
 /// Table with reference lv5
 // User Review
