@@ -44,16 +44,16 @@ exports.getCountryById = async (req, res) => {
 
 exports.addCountry = async (req, res) => {
     try {
-        const country_id = await CountryModel.findOne({
-            where: {
-                country_name: req.body.country_name
-            }
-        })
-        if(country_id) {
-            return res.status(400).json({
-                message: "Country already exists."
-            });
-        }
+        // const country_id = await CountryModel.findOne({
+        //     where: {
+        //         country_name: req.body.country_name
+        //     }
+        // })
+        // if(country_id) {
+        //     return res.status(400).json({
+        //         message: "Country already exists."
+        //     });
+        // }
         const maxID = await CountryModel.max('id');
         const country = {
             id: maxID + 1,

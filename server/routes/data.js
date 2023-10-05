@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+// Model lv1
+const CountryModel = require('../models/data_model/lv1/country.model');
+const ProductCategoryModel = require('../models/data_model/lv1/productCategory.model');
+const orderStatusModel = require('../models/data_model/lv1/orderStatus.model');
+const PromotionModel = require('../models/data_model/lv1/promotion.model');
+const ShippingMethodModel = require('../models/data_model/lv1/shippingMethod.model');
+
 // Table without reference
 const CountryController = require('../controllers/data/lv1/country.controller');
 const ProductCategoryController = require('../controllers/data/lv1/productCategory.controller');
@@ -32,6 +39,7 @@ const UserReviewController = require('../controllers/data/lv5/userReview.control
 
 /// Table without reference
 // Country Controller
+
 /**
  * @swagger
  * /data/country:
@@ -70,34 +78,86 @@ router.get('/country', (req, res) => {
 router.get('/country/:id', (req, res) => {
     CountryController.getCountryById(req, res);
 });
-  
+
 /**
-* @swagger
-* /data/country:
-*   post:
-*     summary: Thêm quốc gia mới
-*     description: Thêm một quốc gia mới vào hệ thống.
-*     requestBody:
-*       required: true
-*       content:
-*         application/json:
-*           schema:
-*             $ref: '#/components/schemas/Country'
-*     responses:
-*       201:
-*         description: Thành công. Trả về thông tin quốc gia đã được thêm.
-*       400:
-*         description: Lỗi yêu cầu không hợp lệ.
-*       500:
-*         description: Lỗi máy chủ nội bộ.
-*/
+ * @swagger
+ * /data/country:
+    *   post:
+    *       tag: 
+    *           - Country
+    *       summary: Tạo quốc gia
+    *       description: Tạo một quốc gia mới.
+    *       requestBody:
+    *           required: true
+    *           content:
+    *               application/json:
+    *                   schema:
+    *                       $ref: '#/components/schemas/CountrySchema'
+    *       responses:
+    *          200:
+    *               description: Thành công. Trả về thông tin quốc gia vừa tạo.
+    *          500:
+    *               description: Lỗi máy chủ nội bộ.
+    *          400: 
+    *               description: Dữ liệu không hợp lệ.
+    *       components:
+    *          schemas:
+    *           CountrySchema:
+    *               type: object
+    *               properties:
+    *                   id:
+    *                       type: number
+    *                   country_name:
+    *                       type: string
+    *               required:
+    *                   - country_name
+ */
 router.post('/country', (req, res) => {
     CountryController.addCountry(req, res);
 });
 
 // Product Category Controller
-router.get('/product-category', (req, res) => {ProductCategoryController.getAllProductCategory(req, res);});
-router.get('/product-category/:id', (req, res) => {ProductCategoryController.getProductCategoryById(req, res);});
+/**
+ * @swagger
+ * /data/product-category:
+ *  get:
+ *      summary: Lấy danh sách danh mục sản phẩm
+ *      description: Trả về danh sách tất cả danh mục sản phẩm
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Product Category
+ *          500:
+ *              description: Wut!
+ * 
+ */
+router.get('/product-category', (req, res) => {
+    ProductCategoryController.getAllProductCategory(req, res);
+});
+
+/**
+* @swagger
+* /data/product-category/{id}:
+*   get:
+*     summary: Lấy thông tin sản phẩm theo ID
+*     description: Trả về thông tin sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của sản phẩm
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin sản phẩm.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*/
+router.get('/product-category/:id', (req, res) => {
+    ProductCategoryController.getProductCategoryById(req, res);
+});
+
+
 router.post('/product-category', (req, res) => {ProductCategoryController.createProductCategory(req, res);});
 router.put('/product-category/:id', (req, res) => {ProductCategoryController.updateProductCategory(req, res);});
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});

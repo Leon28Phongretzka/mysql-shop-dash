@@ -17,4 +17,20 @@ const Country = sequelize.define('Country', {
     timestamps: false
 });
 
-module.exports = Country;
+const CountrySchema = {
+    type: 'object',
+    properties: {
+        id: {
+            type: 'integer',
+        },
+        country_name: {
+            type: 'string',
+        }
+    },
+    required: ['country_name'],
+}
+
+module.exports = {
+    Country,
+    CountrySchema,
+}
