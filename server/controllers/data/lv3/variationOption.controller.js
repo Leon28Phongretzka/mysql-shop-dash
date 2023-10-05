@@ -32,7 +32,7 @@ exports.createVariationOption = async (req, res) => {
     try {
         const variation_id = await VariationModel.findOne({
             where: {
-                name : req.body.variation_name
+                name: req.body.variation_name
             }
         });
         console.log(variation_id);
