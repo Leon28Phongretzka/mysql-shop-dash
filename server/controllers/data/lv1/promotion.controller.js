@@ -90,7 +90,7 @@ exports.deletePromotion = async (req, res) => {
             });
         }
         await promotion.destroy();
-        res.status(200).json({ message: "Promotion deleted successfully!" });
+        res.status(204).json({ message: "Promotion deleted successfully!" });
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while deleting promotion."
