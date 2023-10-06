@@ -50,14 +50,14 @@ exports.createProductCategory = async (req, res) => {
             id: maxID + 1,
             category_name: req.body.category_name
         }
-        const createdProductCategory = await ProductCategoryModel.create(productCategory);
         const existingCategory = await ProductCategoryModel.findOne({ where: { category_name: req.body.category_name } });
         if (existingCategory) {
             return res.status(409).json({
                 message: "Product category already exists."
             });
         }
-        else if (createdProductCategory) {
+        const createdProductCategory = await ProductCategoryModel.create(productCategory);
+        if (createdProductCategory) {
             res.status(201).json(createdProductCategory);
         }
         else if(createdProductCategory === null) {
@@ -86,7 +86,7 @@ exports.updateProductCategory = async (req, res) => {
             });
         }
         const updatedProductCategory = await productCategory.update(req.body);
-        res.status(200).json(updatedProductCategory);
+        res.status(201).json(updatedProductCategory);
     } catch(err) {
         res.status(500).json({
             message: err.message || "Some error occurred while updating the product category."

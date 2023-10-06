@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
     }
     console.log(userData)
     const user = await AuthService.createUser(userData);
-    return res.json({
+    return res.status(200).json({
         data: user,
         message: 'User registered successfully.'
     });
