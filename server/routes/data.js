@@ -1,13 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Model lv1
-const CountryModel = require('../models/data_model/lv1/country.model');
-const ProductCategoryModel = require('../models/data_model/lv1/productCategory.model');
-const orderStatusModel = require('../models/data_model/lv1/orderStatus.model');
-const PromotionModel = require('../models/data_model/lv1/promotion.model');
-const ShippingMethodModel = require('../models/data_model/lv1/shippingMethod.model');
-
 // Table without reference
 const CountryController = require('../controllers/data/lv1/country.controller');
 const ProductCategoryController = require('../controllers/data/lv1/productCategory.controller');
@@ -44,6 +37,7 @@ const UserReviewController = require('../controllers/data/lv5/userReview.control
  * @swagger
  * /data/country:
  *   get:
+ *     tags: [Country]
  *     summary: Lấy danh sách quốc gia
  *     description: Trả về danh sách tất cả quốc gia.
  *     responses:
@@ -52,14 +46,13 @@ const UserReviewController = require('../controllers/data/lv5/userReview.control
  *       500:
  *         description: Lỗi máy chủ nội bộ.
  */
-router.get('/country', (req, res) => {
-    CountryController.getAllCountry(req, res);
-  });
+router.get('/country', (req, res) => {CountryController.getAllCountry(req, res);});
   
 /**
 * @swagger
 * /data/country/{id}:
 *   get:
+*     tags: [Country]
 *     summary: Lấy thông tin quốc gia theo ID
 *     description: Trả về thông tin quốc gia dựa trên ID được cung cấp.
 *     parameters:
@@ -68,6 +61,7 @@ router.get('/country', (req, res) => {
 *         required: true
 *         schema:
 *           type: string
+*           required: true
 *         description: ID của quốc gia
 *     responses:
 *       200:
@@ -82,35 +76,27 @@ router.get('/country/:id', (req, res) => {
 /**
  * @swagger
  * /data/country:
-    *   post:
-    *       tag: 
-    *           - Country
-    *       summary: Tạo quốc gia
-    *       description: Tạo một quốc gia mới.
-    *       requestBody:
-    *           required: true
-    *           content:
-    *               application/json:
-    *                   schema:
-    *                       $ref: '#/components/schemas/CountrySchema'
-    *       responses:
-    *          200:
-    *               description: Thành công. Trả về thông tin quốc gia vừa tạo.
-    *          500:
-    *               description: Lỗi máy chủ nội bộ.
-    *          400: 
-    *               description: Dữ liệu không hợp lệ.
-    *       components:
-    *          schemas:
-    *           CountrySchema:
-    *               type: object
-    *               properties:
-    *                   id:
-    *                       type: number
-    *                   country_name:
-    *                       type: string
-    *               required:
-    *                   - country_name
+ *   post:
+ *     tags: [Country]
+ *     description: Tạo mới quốc gia
+ *     parameters:
+ *      - name: id
+ *        description: ID quốc gia
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: country_name
+ *        description: Tên quốc gia
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
  */
 router.post('/country', (req, res) => {
     CountryController.addCountry(req, res);
@@ -121,6 +107,7 @@ router.post('/country', (req, res) => {
  * @swagger
  * /data/product-category:
  *  get:
+ *      tags: [Product Category]
  *      summary: Lấy danh sách danh mục sản phẩm
  *      description: Trả về danh sách tất cả danh mục sản phẩm
  *      responses:
@@ -138,6 +125,7 @@ router.get('/product-category', (req, res) => {
 * @swagger
 * /data/product-category/{id}:
 *   get:
+*     tags: [Product Category]
 *     summary: Lấy thông tin sản phẩm theo ID
 *     description: Trả về thông tin sản phẩm dựa trên ID được cung cấp.
 *     parameters:
@@ -157,15 +145,123 @@ router.get('/product-category/:id', (req, res) => {
     ProductCategoryController.getProductCategoryById(req, res);
 });
 
-
+/**
+ * @swagger
+ * /data/product-category:
+ *   post:
+ *     tags: [Product Category]
+ *     description: Tạo mới danh mục sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: category_name
+ *        description: Tên danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/product-category', (req, res) => {ProductCategoryController.createProductCategory(req, res);});
+
+/**
+ * @swagger
+ * /data/product-category/{id}:
+ *   put:
+ *     tags: [Product Category]
+ *     description: Sửa danh mục sản phẩm
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục sản phẩm
+ *      - name: category_name
+ *        description: Tên danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/product-category/:id', (req, res) => {ProductCategoryController.updateProductCategory(req, res);});
+
+/**
+* @swagger
+* /data/product-category/{id}:
+*   delete:
+*     tags: [Product Category]
+*     summary: Xóa danh mục sản phẩm
+*     description: Xóa danh mục sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});
 
 // Order Status Controller
+// Product Category Controller
+/**
+ * @swagger
+ * /data/orderStatus:
+ *  get:
+ *      tags: [Order Status]
+ *      summary: Lấy danh sách phương thức đặt hàng
+ *      description: Trả về danh sách tất cả phương thức đặt hàng
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Order Status
+ *          500:
+ *              description: Wut!
+ * 
+ */
 router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatus(req, res);});
 
 // Payment Type Controller
+// Product Category Controller
+/**
+ * @swagger
+ * /data/payment-type:
+ *  get:
+ *      tags: [Payment Type]
+ *      summary: Lấy danh sách phương thức thanh toán
+ *      description: Trả về danh sách tất cả phương thức thanh toán
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Payment Type
+ *          500:
+ *              description: Wut!
+ * 
+ */
 router.get('/payment-type', (req, res) => {PaymentTypeController.getAllPaymentType(req, res);});
 
 // Promotion Controller
