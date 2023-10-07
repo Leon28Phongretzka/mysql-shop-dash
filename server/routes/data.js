@@ -265,7 +265,37 @@ router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatu
 router.get('/payment-type', (req, res) => {PaymentTypeController.getAllPaymentType(req, res);});
 
 // Promotion Controller
+
+/**
+ * @swagger
+ * /data/promotion:
+ * get:
+ *      tags: [Promotion]
+ *      summary: Lấy danh sách khuyến mãi
+ *      description: Trả về danh sách tất cả danh sách chiết khấu
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Promotion
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/promotion', (req, res) => {PromotionController.getAllPromotion(req, res);});
+
+/**
+ * @swagger
+ * /data/promotion:
+ * get:
+ *      tags: [Promotion]
+ *      summary: Lấy danh sách khuyến mãi hết hạn
+ *      description: Trả về danh sách tất cả danh sách chiết khấu hết hạn
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Promotion
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPromotion(req, res);});
 router.post('/promotion', (req, res) => {PromotionController.createPromotion(req, res);});
 router.delete('/expired-promotion', (req, res) => {PromotionController.deleteExpiredPromotion(req, res);});
