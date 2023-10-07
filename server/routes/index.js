@@ -60,6 +60,7 @@ router.post('/register', validate(schema.register), ErrorHandler(AuthController.
  *          description: Bad request
  */
 router.post('/login',    validate(schema.login),    ErrorHandler(AuthController.login));
+
 router.get('/user',      AuthGuard,                 ErrorHandler(AuthController.getUser));
 router.get('/logout',    AuthGuard,                 ErrorHandler(AuthController.logout));
 router.post('/refresh',  validate(schema.refresh),  ErrorHandler(AuthController.refreshToken));

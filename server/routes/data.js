@@ -297,12 +297,143 @@ router.get('/promotion', (req, res) => {PromotionController.getAllPromotion(req,
  * 
  */ 
 router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPromotion(req, res);});
+
+/**
+ * @swagger
+ * /data/promotion:
+ *   post:
+ *     tags: [Promotion]
+ *     description: Tạo mới danh mục chiết khấu
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: promotion_name
+ *        description: Tên danh mục chiết khấu
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: promotion_description
+ *        description: Mô tả danh mục chiết khấu
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: discount_rate
+ *        description: Phần trăm chiết khấu
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *      - name: start_date
+ *        description: Thời gian bắt đầu
+ *        in: formData
+ *        required: true
+ *        type: date
+ *      - name: end_date
+ *        description: Thời gian kết thúc
+ *        in: formData
+ *        required: true
+ *        type: date
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/promotion', (req, res) => {PromotionController.createPromotion(req, res);});
+
+/**
+* @swagger
+* /data/promotion/expired-promotion:
+*   delete:
+*     tags: [Promotion]
+*     summary: Xóa danh mục sản phẩm hết hạn chiết khấu
+*     description: Xóa danh mục sản phẩm dựa trên hạn được cung cấp.
+*     parameters:
+*       - in: path
+*         name: end_date
+*         required: true
+*         schema:
+*           type: date
+*         description: end_date của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo end_date.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/expired-promotion', (req, res) => {PromotionController.deleteExpiredPromotion(req, res);});
+
+/**
+* @swagger
+* /data/promotion/{id}:
+*   delete:
+*     tags: [Promotion]
+*     summary: Xóa danh mục sản phẩm
+*     description: Xóa danh mục sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/promotion/:id', (req, res) => {PromotionController.deletePromotion(req, res);});
 
 //Shipping Medthod Controller
+
+/**
+ * @swagger
+ * /data/shipping-method:
+ * get:
+ *      tags: [Shipping-method]
+ *      summary: Lấy danh sách phương thức vận chuyển
+ *      description: Trả về danh sách tất cả danh sách phương thức vận chuyển
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Shipping-method
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/shipping-method', (req, res) => {ShippingMedhodController.getAllShippingMethod(req, res);});
+
+/**
+* @swagger
+* /data/shipping-method/{id}:
+*   get:
+*     tags: [Shipping-method]
+*     summary: Lấy thông tin phương thức vận chuyển theo ID
+*     description: Trả về thông tin phương thức dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*           required: true
+*         description: ID của phương thức vận chuyển
+*     responses:
+*       200:
+*         description: Thành công. Trả về phương thức vận chuyển.
+*       404:
+*         description: Không tìm thấy phương thức theo ID.
+*/
 router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getShippingMethodById(req, res);});
 
 
