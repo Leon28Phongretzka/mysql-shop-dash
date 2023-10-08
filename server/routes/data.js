@@ -439,40 +439,667 @@ router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getSh
 
 /// Table with reference lv2
 // Address Controller
+
+/**
+ * @swagger
+ * /data/address:
+ * get:
+ *      tags: [Address]
+ *      summary: Lấy danh sách địa chỉ
+ *      description: Trả về danh sách tất cả danh sách địa chỉ
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Address
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
+
+/**
+* @swagger
+* /data/address/{id}:
+*   get:
+*     tags: [Address]
+*     summary: Lấy thông tin sản phẩm theo ID
+*     description: Trả về thông tin sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của sản phẩm
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin sản phẩm.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*/
 router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res);});
+
+/**
+ * @swagger
+ * /data/address:
+ *   post:
+ *     tags: [Address]
+ *     description: Tạo mới danh mục địa chỉ
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: unit_number
+ *        description: số nhà
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *      - name: street_number
+ *        description: Số địa chỉ khu phố
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *      - name: address_line1
+ *        description: Địa chỉ thứ nhất
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: address_line2
+ *        description: Địa chỉ thứ hai
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: city
+ *        description: Tên địa chỉ thành phố
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: region
+ *        description: Tên vùng
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: postal_code
+ *        description: Mã vùng bưu điện
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: country_id
+ *        description: ID quốc gia
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/address', (req, res) => {AddressController.createAddress(req, res);});
+
+/**
+ * @swagger
+ * /data/address/{id}:
+ *   put:
+ *     tags: [Address]
+ *     description: Sửa danh mục sản phẩm
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục sản phẩm
+ *      - name: category_name
+ *        description: Tên danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/address/:id', (req, res) => {AddressController.updateAddress(req, res);});
+
+/**
+* @swagger
+* /data/address/{id}:
+*   delete:
+*     tags: [Address]
+*     summary: Xóa danh mục sản phẩm
+*     description: Xóa danh mục sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/address/:id', (req, res) => {AddressController.deleteAddress(req, res);});
 
 // Product Controller
+
+/**
+ * @swagger
+ * /data/product:
+ * get:
+ *      tags: [Product]
+ *      summary: Lấy danh sách sản phẩm
+ *      description: Trả về danh sách tất cả danh sách sản phẩm
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Product
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);});
+
+/**
+* @swagger
+* /data/product/{id}:
+*   get:
+*     tags: [Product]
+*     summary: Lấy thông tin sản phẩm theo ID
+*     description: Trả về thông tin sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của sản phẩm
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin sản phẩm.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*/
 router.get('/product/:id', (req, res) => {ProductController.getProductById(req, res);});
+
+/**
+ * @swagger
+ * /data/product:
+ *   post:
+ *     tags: [Product]
+ *     description: Tạo mới danh mục sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: category_id
+ *        description: ID danh mục
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *      - name: name
+ *        description: Tên sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: description
+ *        description: Mô tả sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: product_image
+ *        description: Địa chỉ hình ảnh của sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/product', (req, res) => {ProductController.createProduct(req, res);});
+
+/**
+ * @swagger
+ * /data/product/{id}:
+ *   put:
+ *     tags: [Product]
+ *     description: Sửa danh mục sản phẩm
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục sản phẩm
+ *      - name: category_name
+ *        description: Tên danh mục sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/product/:id', (req, res) => {ProductController.updateProduct(req, res);});
+
+/**
+* @swagger
+* /data/product/{id}:
+*   delete:
+*     tags: [Product]
+*     summary: Xóa danh mục sản phẩm
+*     description: Xóa danh mục sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/product/:id', (req, res) => {ProductController.deleteProduct(req, res);});
 
 // Shopping Cart Controller
+
+/**
+ * @swagger
+ * /data/shopping-cart:
+ * get:
+ *      tags: [Shopping-cart]
+ *      summary: Lấy danh sách sản phẩm
+ *      description: Trả về danh sách tất cả danh sách sản phẩm
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Shopping-cart
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppingCarts(req, res);});
+
+/**
+* @swagger
+* /data/shopping-cart/{id}:
+*   get:
+*     tags: [Shopping-cart]
+*     summary: Lấy thông tin sản phẩm theo ID
+*     description: Trả về thông tin sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của sản phẩm
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin sản phẩm.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*/
 router.get('/shopping-cart/:id', (req, res) => {ShoppingCartController.getShoppingCartsByUserID(req, res);});
+
+/**
+ * @swagger
+ * /data/shopping-cart:
+ *   post:
+ *     tags: [Shopping-cart]
+ *     description: Tạo mới danh mục giỏ hàng
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục giỏ hàng
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: user_id
+ *        description: ID user
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục giỏ hàng đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/shopping-cart', (req, res) => {ShoppingCartController.createShoppingCart(req, res);});
+
+/**
+ * @swagger
+ * /data/Shopping-cart/{id}:
+ *   put:
+ *     tags: [Shopping-cart]
+ *     description: Sửa danh mục giỏ hàng
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục giỏ hàng
+ *      - name: category_name
+ *        description: Tên danh mục giỏ hàng
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục giỏ hàng đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateShoppingCart(req, res);});
 
 //Variation Controller
+
+/**
+ * @swagger
+ * /data/variation:
+ * get:
+ *      tags: [Variation]
+ *      summary: Lấy danh sách dữ liệu
+ *      description: Trả về danh sách tất cả danh sách dữ liệu
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên variation
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
+
+/**
+* @swagger
+* /data/variation/{id}:
+*   get:
+*     tags: [Variation]
+*     summary: Lấy thông tin variation theo ID
+*     description: Trả về thông tin variation dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của variation
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin variation.
+*       404:
+*         description: Không tìm thấy variation theo ID.
+*/
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
+
+/**
+ * @swagger
+ * /data/variation:
+ *   post:
+ *     tags: [Variation]
+ *     description: Tạo mới danh mục variation
+ *     parameters:
+ *      - name: id
+ *        description: ID danh mục variation
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: category_id
+ *        description: ID user
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *      - name: name
+ *        description: Tên được biến đổi
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục variation đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});
+
+/**
+ * @swagger
+ * /data/varation/{id}:
+ *   put:
+ *     tags: [Variation]
+ *     description: Sửa danh mục variation
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục variation
+ *      - name: category_name
+ *        description: Tên danh mục variation
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục variation đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/variation/:id', (req, res) => {VariationController.updateVariation(req, res);});
+
+/**
+* @swagger
+* /data/variation/{id}:
+*   delete:
+*     tags: [Variation]
+*     summary: Xóa danh mục
+*     description: Xóa danh mục dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/variation/:id', (req, res) => {VariationController.deleteVariation(req, res);});
 
 // userPaymentMethod Controller
+
+/**
+ * @swagger
+ * /data/user-payment-method:
+ * get:
+ *      tags: [User Payment Method]
+ *      summary: Lấy danh sách phương thức thanh toán
+ *      description: Trả về danh sách tất cả danh sách phương thức thanh toán
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 
 // promotionCategory Controller
+
+/**
+ * @swagger
+ * /data/promotion-category:
+ * get:
+ *      tags: [Promotion Category]
+ *      summary: Lấy danh sách dữ liệu Promotion Category
+ *      description: Trả về danh sách tất cả danh sách dữ liệu Promotion Category
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin trên Promotion Category
+ *          500:
+ *              description: Lỗi hệ thống! 
+ * 
+ */ 
 router.get('/promotion-category', (req, res) => {promotionCategoryController.getAllPromotionCategory(req, res);});
+
+/**
+* @swagger
+* /data/promotion-category/{id}:
+*   get:
+*     tags: [Promotion Category]
+*     summary: Lấy thông tin danh mục promotion theo ID
+*     description: Trả về thông tin danh mục promotion dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục promotion
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin danh mục promotion.
+*       404:
+*         description: Không tìm thấy danh mục promotion theo ID.
+*/
 router.get('/promotion-category/:id', (req, res) => {promotionCategoryController.getPromotionCategoryById(req, res);});
+
+/**
+ * @swagger
+ * /data/promotion-category:
+ *   post:
+ *     tags: [Promotion Category]
+ *     description: Tạo mới danh mục Promotion Category
+ *     parameters:
+ *      - name: category_id
+ *        description: ID danh mục Category
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: promotion_id
+ *        description: ID danh mục Promotion
+ *        in: formData
+ *        required: true
+ *        type: interger
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục Promotion Category đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/promotion-category', (req, res) => {promotionCategoryController.createPromotionCategory(req, res);});
+
+/**
+ * @swagger
+ * /data/promotion-category/{id}:
+ *   put:
+ *     tags: [Promotion Category]
+ *     description: Sửa danh mục Promotion Category
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *            type: string
+ *            description: ID của danh mục Promotion Category
+ *      - name: category_name
+ *        description: Tên danh mục Promotion Category
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục Promotion Category đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/promotion-category/:id', (req, res) => {promotionCategoryController.updatePromotionCategory(req, res);});
+
+/**
+* @swagger
+* /data/promotion-category/{id}:
+*   delete:
+*     tags: [Promotion Category]
+*     summary: Xóa danh mục Promotion Category
+*     description: Xóa danh mục dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/promotion-category/:id', (req, res) => {promotionCategoryController.deletePromotionCategory(req, res);});
 
 /// Table with reference lv3
