@@ -241,7 +241,7 @@ router.delete('/product-category/:id', (req, res) => {ProductCategoryController.
  *          200:
  *              description: Thành công, trả về thông tin trên Order Status
  *          500:
- *              description: Wut!
+ *              description: Lỗi máy chủ nội bộ
  * 
  */
 router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatus(req, res);});
@@ -259,29 +259,298 @@ router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatu
  *          200:
  *              description: Thành công, trả về thông tin trên Payment Type
  *          500:
- *              description: Wut!
+ *              description: Lỗi máy chủ nội bộ
  * 
  */
 router.get('/payment-type', (req, res) => {PaymentTypeController.getAllPaymentType(req, res);});
 
 // Promotion Controller
+/**
+ * @swagger
+ * /data/promotion:
+ *  get:
+ *      tags: [Promotion]
+ *      summary: Lấy danh sách các khuyến mãi
+ *      description: Trả về danh sách tất cả các khuyến mãi
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin tất cả các khuyến mãi đã xuất ra
+ *          500:
+ *              description: Lỗi máy chủ nội bộ
+ * 
+ */
 router.get('/promotion', (req, res) => {PromotionController.getAllPromotion(req, res);});
+/**
+ * @swagger
+ * /data/expired-promotion:
+ *  get:
+ *      tags: [Promotion]
+ *      summary: Lấy danh sách các khuyến mãi
+ *      description: Trả về danh sách tất cả các khuyến mãi
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin tất cả các khuyến mãi đã xuất ra
+ *          500:
+ *              description: Lỗi máy chủ nội bộ
+ * 
+ */
 router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPromotion(req, res);});
+
+/**
+ * @swagger
+ * /data/promotion:
+ *   post:
+ *     tags: [Promotion]
+ *     description: Tạo mới khuyến mãi
+ *     parameters:
+ *      - name: id
+ *        description: ID khuyễn mãi
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: name
+ *        description: Tên khuyến mãi
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: description
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: start_date
+ *        description: Ngày bắt đầu khuyến mãi
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: end_date
+ *        description: Ngày kết thúc khuyến mãi
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: discount
+ *        description: Giá trị giảm giá
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       200:
+ *         description: Created
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/promotion', (req, res) => {PromotionController.createPromotion(req, res);});
-router.delete('/expired-promotion', (req, res) => {PromotionController.deleteExpiredPromotion(req, res);});
+/**
+* @swagger
+* /data/promotion/{id}:
+*   delete:
+*     tags: [Promotion]
+*     summary: Xóa khuyến mãi
+*     description: Xóa khuyến mãi dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/promotion/:id', (req, res) => {PromotionController.deletePromotion(req, res);});
 
 //Shipping Medthod Controller
 router.get('/shipping-method', (req, res) => {ShippingMedhodController.getAllShippingMethod(req, res);});
 router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getShippingMethodById(req, res);});
 
-
 /// Table with reference lv2
 // Address Controller
+/**
+ * @swagger
+ * /data/address:
+ *  get:
+ *      tags: [Address]
+ *      summary: Lấy danh sách địa chỉ khách hàng đã đăng ký tài khoản
+ *      description: Trả về danh sách tất cả các địa chỉ khách hàng đã đăng ký tài khoản
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin tất cả các địa chỉ khách hàng đã đăng ký tài khoản
+ *          500:
+ *              description: Lỗi máy chủ nội bộ
+ * 
+ */
 router.get('/address', (req, res) => {AddressController.getAllAddress(req, res);});
+/**
+* @swagger
+* /data/address/{id}:
+*   get:
+*     tags: [Address]
+*     summary: Lấy thông tin địa chỉ theo ID
+*     description: Trả về thông tin dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của địa chỉ
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin địa chỉ
+*       404:
+*         description: Không tìm thấy địa chỉ theo ID.
+*/
 router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res);});
+/**
+ * @swagger
+ * /data/address:
+ *   post:
+ *     tags: [Address]
+ *     description: Tạo mới địa chỉ
+ *     parameters:
+ *      - name: id
+ *        description: ID địa chỉ
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: unit_number
+ *        description: Số lượng đặt hàng
+ *        in: formData
+ *        required: true
+ *        type: number
+ *      - name: street_number
+ *        description: Số nhà
+ *        in: formData
+ *        required: true
+ *        type: number
+ *      - name: address_line1
+ *        description: Địa chỉ nhà ( L1 )
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: address_line2
+ *        description: Địa chỉ nhà ( L2 )
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: city
+ *        description: Thành phố
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: region
+ *        description: Khu vực
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: postal_code
+ *        description: Mã bưu chính
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: country_name
+ *        description: Tên quốc gia
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/address', (req, res) => {AddressController.createAddress(req, res);});
+/**
+ * @swagger
+ * /data/address/{id}:
+ *   put:
+ *     tags: [Address]
+ *     description: Chỉnh sửa thông tin đặt hàng
+ *     parameters:
+ *      - name: id
+ *        description: ID địa chỉ cần cập nhật
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: unit_number
+ *        description: Số lượng đặt hàng
+ *        in: formData
+ *        required: true
+ *        type: number
+ *      - name: street_number
+ *        description: Số nhà
+ *        in: formData
+ *        required: true
+ *        type: number
+ *      - name: address_line1
+ *        description: Địa chỉ nhà ( L1 )
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: address_line2
+ *        description: Địa chỉ nhà ( L2 )
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: city
+ *        description: Thành phố
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: region
+ *        description: Khu vực
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: postal_code
+ *        description: Mã bưu chính
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: country_name
+ *        description: Tên quốc gia
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/address/:id', (req, res) => {AddressController.updateAddress(req, res);});
+/**
+* @swagger
+* /data/address/{id}:
+*   delete:
+*     tags: [Address]
+*     summary: Xóa thông tin địa chỉ
+*     description: Xóa thông tin địa chỉ dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/address/:id', (req, res) => {AddressController.deleteAddress(req, res);});
 
 // Product Controller
