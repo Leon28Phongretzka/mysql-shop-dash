@@ -269,7 +269,7 @@ router.get('/payment-type', (req, res) => {PaymentTypeController.getAllPaymentTy
 /**
  * @swagger
  * /data/promotion:
- * get:
+ *  get:
  *      tags: [Promotion]
  *      summary: Lấy danh sách khuyến mãi
  *      description: Trả về danh sách tất cả danh sách chiết khấu
@@ -284,8 +284,8 @@ router.get('/promotion', (req, res) => {PromotionController.getAllPromotion(req,
 
 /**
  * @swagger
- * /data/promotion:
- * get:
+ * /data//expired-promotion:
+ *  get:
  *      tags: [Promotion]
  *      summary: Lấy danh sách khuyến mãi hết hạn
  *      description: Trả về danh sách tất cả danh sách chiết khấu hết hạn
@@ -324,17 +324,17 @@ router.get('/expired-promotion', (req, res) => {PromotionController.getExpriedPr
  *        description: Phần trăm chiết khấu
  *        in: formData
  *        required: true
- *        type: interger
+ *        type: number
  *      - name: start_date
  *        description: Thời gian bắt đầu
  *        in: formData
  *        required: true
- *        type: date
+ *        type: string
  *      - name: end_date
  *        description: Thời gian kết thúc
  *        in: formData
  *        required: true
- *        type: date
+ *        type: string
  *     responses:
  *       201:
  *         description: Created
@@ -400,7 +400,7 @@ router.delete('/promotion/:id', (req, res) => {PromotionController.deletePromoti
 /**
  * @swagger
  * /data/shipping-method:
- * get:
+ *  get:
  *      tags: [Shipping-method]
  *      summary: Lấy danh sách phương thức vận chuyển
  *      description: Trả về danh sách tất cả danh sách phương thức vận chuyển
@@ -443,7 +443,7 @@ router.get('/shipping-method/:id', (req, res) => {ShippingMedhodController.getSh
 /**
  * @swagger
  * /data/address:
- * get:
+ *  get:
  *      tags: [Address]
  *      summary: Lấy danh sách địa chỉ
  *      description: Trả về danh sách tất cả danh sách địa chỉ
@@ -494,12 +494,12 @@ router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res)
  *        description: số nhà
  *        in: formData
  *        required: true
- *        type: interger
+ *        type: number
  *      - name: street_number
  *        description: Số địa chỉ khu phố
  *        in: formData
  *        required: true
- *        type: interger
+ *        type: number
  *      - name: address_line1
  *        description: Địa chỉ thứ nhất
  *        in: formData
@@ -529,7 +529,7 @@ router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res)
  *        description: ID quốc gia
  *        in: formData
  *        required: true
- *        type: interger
+ *        type: number
  *     responses:
  *       201:
  *         description: Created
@@ -652,7 +652,7 @@ router.get('/product/:id', (req, res) => {ProductController.getProductById(req, 
  *        description: ID danh mục
  *        in: formData
  *        required: true
- *        type: interger
+ *        type: number
  *      - name: name
  *        description: Tên sản phẩm
  *        in: formData
