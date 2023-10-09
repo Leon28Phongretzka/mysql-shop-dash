@@ -554,19 +554,246 @@ router.put('/address/:id', (req, res) => {AddressController.updateAddress(req, r
 router.delete('/address/:id', (req, res) => {AddressController.deleteAddress(req, res);});
 
 // Product Controller
+/**
+ * @swagger
+ * /data/product:
+ *  get:
+ *      tags: [Product]
+ *      summary: Lấy danh sách sản phẩm
+ *      description: Trả về danh sách tất cả các sản phẩm
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin sản phẩm
+ *          500:
+ *              description: Lỗi máy chủ nội bộ
+ * 
+ */
 router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);});
+
+/**
+* @swagger
+* /data/product/{id}:
+*   get:
+*     tags: [Product]
+*     summary: Lấy thông tin sản phẩm theo ID
+*     description: Trả về thông tin dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của sản phẩm
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin sản phẩm
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*/
 router.get('/product/:id', (req, res) => {ProductController.getProductById(req, res);});
+/**
+ * @swagger
+ * /data/product:
+ *   post:
+ *     tags: [Product]
+ *     description: Tạo mới sản phẩm và thông tin sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID địa chỉ
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: name
+ *        description: ID địa chỉ
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: description
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: product_image
+ *        description: Ảnh sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: category_id
+ *        description: ID category
+ *        in: formData
+ *        required: true
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/product', (req, res) => {ProductController.createProduct(req, res);});
+/**
+ * @swagger
+ * /data/product/{id}:
+ *   put:
+ *     tags: [Product]
+ *     description: Chỉnh sửa thông tin sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID địa chỉ
+ *        in: path
+ *        required: true
+ *        type: integer
+ *      - name: name
+ *        description: ID địa chỉ
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: description
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: product_image
+ *        description: Ảnh sản phẩm
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: category_id
+ *        description: ID category
+ *        type: integer
+ *        in: formData
+ *        required: true
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/product/:id', (req, res) => {ProductController.updateProduct(req, res);});
+/**
+* @swagger
+* /data/product/{id}:
+*   delete:
+*     tags: [Product]
+*     summary: Xóa thông tin sản phẩm
+*     description: Xóa thông tin sản phẩm dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của danh mục sản phẩm
+*     responses:
+*       204:
+*         description: Xóa thành công, không có dữ liệu trả về.
+*       404:
+*         description: Không tìm thấy sản phẩm theo ID.
+*       500:
+*         description: Lỗi máy chủ nội bộ.
+*/
 router.delete('/product/:id', (req, res) => {ProductController.deleteProduct(req, res);});
 
 // Shopping Cart Controller
+/**
+ * @swagger
+ * /data/shopping-cart:
+ *  get:
+ *      tags: [Shopping Cart]
+ *      summary: Lấy danh sách giỏ hàng
+ *      description: Trả về danh sách tất cả các giỏ hàng
+ *      responses:
+ *          200:
+ *              description: Thành công, trả về thông tin giỏ hàng
+ *          500:
+ *              description: Lỗi máy chủ nội bộ
+ * 
+ */
 router.get('/shopping-cart', (req, res) => {ShoppingCartController.getAllShoppingCarts(req, res);});
+/**
+* @swagger
+* /data/shopping-cart/{id}:
+*   get:
+*     tags: [Shopping Cart]
+*     summary: Lấy thông tin giỏ hàng theo ID
+*     description: Trả về thông tin dựa trên ID được cung cấp.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: ID của giỏ hàng
+*     responses:
+*       200:
+*         description: Thành công. Trả về thông tin giỏ hàng
+*       404:
+*         description: Không tìm thấy giỏ hàng theo ID.
+*/
 router.get('/shopping-cart/:id', (req, res) => {ShoppingCartController.getShoppingCartsByUserID(req, res);});
+/**
+ * @swagger
+ * /data/shopping-cart:
+ *   post:
+ *     tags: [Shopping Cart]
+ *     description: Tạo mới sản phẩm và thông tin sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID địa chỉ
+ *        in: formData
+ *        required: true
+ *        type: integer
+ *      - name: email
+ *        description: Email người dùng tương ứng
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.post('/shopping-cart', (req, res) => {ShoppingCartController.createShoppingCart(req, res);});
+/**
+ * @swagger // Has a bug need to fix
+ * /data/shopping-cart:
+ *   put:
+ *     tags: [Shopping Cart]
+ *     description: Tạo mới sản phẩm và thông tin sản phẩm
+ *     parameters:
+ *      - name: id
+ *        description: ID giỏ hàng
+ *        in: path
+ *        required: true
+ *        type: integer
+ *      - name: email
+ *        description: Email người dùng tương ứng
+ *        in: formData
+ *        required: true
+ *        type: string
+ *     responses:
+ *       201:
+ *         description: Created
+ *       400:
+ *         description: Bad request 
+ *       409:
+ *         description: Danh mục sản phẩm đã tồn tại
+ *       500:
+ *         description: Lỗi máy chủ nội bộ
+ */
 router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateShoppingCart(req, res);});
 
 //Variation Controller
+
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
 router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});

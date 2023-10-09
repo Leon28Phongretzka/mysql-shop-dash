@@ -7,7 +7,7 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 require('dotenv').config();
 
-const indexRouter = require('./routes/index'); 
+const authRouter = require('./routes/auth'); 
 const dataRouter = require('./routes/data');
 const app = express();
 
@@ -22,7 +22,7 @@ const swaggerOptions = {
             servers: ['http://localhost:3000']
         }
     },
-    apis: ['./routes/data.js', './routes/index.js']
+    apis: ['./routes/auth.js', './routes/data.js']
 };
 
 
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-app.use('/api', indexRouter); 
+app.use('/api',  authRouter); 
 app.use('/data', dataRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
