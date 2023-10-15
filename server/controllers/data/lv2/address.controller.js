@@ -101,12 +101,17 @@ exports.updateAddress = async (req, res) => {
             postal_code: req.body.postal_code,
             country_id: country_id.id,
         }
-        const updatedAddress = await AddressModel.update(address, {
+        const addressUpdate = await AddressModel.update(address, {
             where: {
                 id: req.params.id
             }
         });
-        res.status(200).json("Update complete");
+        if (!addressUpdate) {
+            return res.status(404).json({
+                message: "Address not found with id " + req.params.id
+            });
+        }
+        res.status(200).json("Update complete for address with id " + req.params.id);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while updating the address."

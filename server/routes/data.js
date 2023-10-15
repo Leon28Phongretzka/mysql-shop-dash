@@ -475,9 +475,9 @@ router.post('/address', (req, res) => {AddressController.createAddress(req, res)
  *     parameters:
  *      - name: id
  *        description: ID địa chỉ cần cập nhật
- *        in: formData
+ *        in: path
  *        required: true
- *        type: integer
+ *        type: number
  *      - name: unit_number
  *        description: Số lượng đặt hàng
  *        in: formData
