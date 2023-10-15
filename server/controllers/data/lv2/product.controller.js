@@ -41,7 +41,10 @@ exports.getProductById = async (req, res) => {
                 message: "Product not found with id " + req.params.id
             });
         }
-        res.status(200).json(product);
+        const category = await productCategoryModel.findByPk(product.category_id);
+        delete product.dataValues.category_id;
+        const productWithCategory = { ...product.dataValues, category_name: category.category_name };
+        res.status(200).json(productWithCategory);
 
     } catch (err) {
         res.status(500).json({
