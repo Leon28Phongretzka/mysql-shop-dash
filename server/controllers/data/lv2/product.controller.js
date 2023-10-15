@@ -19,8 +19,13 @@ exports.getMaxID = async (req, res) => {
 exports.getAllProduct = async (req, res) => {
     try {
         const products = await productModel.findAll();
-        res.status(200).json(products);
-
+        const productPromises = products.map(async (product) => {
+            const category = await productCategoryModel.findByPk(product.category_id);
+            delete product.dataValues.category_id;
+            return { ...product.dataValues, category_name: category.category_name };
+        }, Promise.resolve());
+        const productWithCategory = await Promise.all(productPromises);
+        res.status(200).json(productWithCategory);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving products."

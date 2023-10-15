@@ -26,6 +26,7 @@ exports.getAllAddress = async (req, res) => {
         const addresses = await AddressModel.findAll();
         const addressPromises = addresses.map(async (address) => {
             const country = await CountryModel.findByPk(address.country_id);
+            delete address.dataValues.country_id;
             return { ...address.dataValues, country_name: country.country_name };
         });
         const addressWithCountry = await Promise.all(addressPromises);
@@ -46,6 +47,7 @@ exports.getAddress = async (req, res) => {
             });
         }
         const country = await CountryModel.findByPk(address.country_id);
+        delete address.dataValues.country_id;
         const addressWithCountry = { ...address.dataValues, country_name: country.country_name };
         res.status(200).json(addressWithCountry);
     } catch (err) {
