@@ -18,7 +18,12 @@ exports.getMaxID = async (req, res) => {
 exports.getAllShoppingCarts = async (req, res) => {
     try {
         const Carts = await shoppingCartModel.findAll();
-        res.status(200).json(Carts);
+        const cartPromises = Carts.map(async (cart) => {
+            const user = await UserModel.findByPk(cart.user_id);
+            // delete cart.dataValues.user_id;
+            return { ...cart.dataValues, email_address: user.email_address };
+        });
+        res.status(200).json(await Promise.all(cartPromises));
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving Carts."
@@ -28,12 +33,19 @@ exports.getAllShoppingCarts = async (req, res) => {
 
 exports.getShoppingCartsByUserID = async (req, res) => {
     try {
-        const Carts = await shoppingCartModel.findAll({
+        const Cart = await shoppingCartModel.findAll({
             where: {
                 user_id: req.params.id
             }
         });
-        res.status(200).json(Carts);
+        const cartPromises = Cart.map(async (cart) => {
+            const user = await UserModel.findByPk(cart.user_id);
+            // delete cart.dataValues.user_id;
+            return { ...cart.dataValues, email_address: user.email_address };
+        });
+        // delete Cart.dataValues.user_id;
+        res.status(200).json(await Promise.all(cartPromises));
+        // res.status(200).json(Cart);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving Carts."

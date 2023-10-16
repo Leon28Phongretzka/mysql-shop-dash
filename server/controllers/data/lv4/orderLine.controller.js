@@ -1,5 +1,14 @@
 const OrderLineModel = require('../../../models/data_model/lv4/orderLine.model');
 const productItemModel = require('../../../models/data_model/lv3/productItem.model');
+const productModel = require('../../../models/data_model/lv2/product.model');
+const productCategoryModel = require('../../../models/data_model/lv1/productCategory.model');
+const shopOrderModel = require('../../../models/data_model/lv3/shopOrder.model');
+const userPaymentMethodModel = require('../../../models/data_model/lv2/userPaymentMethod.model');
+const AddressModel = require('../../../models/data_model/lv2/address.model');
+const shippingMethodModel = require('../../../models/data_model/lv1/shippingMethod.model');
+const orderStatusModel = require('../../../models/data_model/lv1/orderStatus.model');
+const CountryModel = require('../../../models/data_model/lv1/country.model');
+
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
@@ -7,8 +16,30 @@ const { Op } = require("sequelize");
 exports.getAllOrderLine = async (req, res) => {
     try {
         const OrderLines = await OrderLineModel.findAll();
-        res.status(200).json(OrderLines);
-
+        const OrderLinePromise = OrderLines.map(async (OrderLine) => {
+            const productItem = await productItemModel.findByPk(OrderLine.product_item_id);
+            const product = await productModel.findByPk(productItem.product_id);
+            const category = await productCategoryModel.findByPk(product.category_id);
+            const shopOrder = await shopOrderModel.findByPk(OrderLine.order_id);
+            const userPaymentMethod = await userPaymentMethodModel.findByPk(shopOrder.payment_method_id);
+            const address = await AddressModel.findByPk(shopOrder.shipping_address);
+            const country = await CountryModel.findByPk(address.country_id);
+            const shippingMethod = await shippingMethodModel.findByPk(shopOrder.shipping_method);
+            const orderStatus = await orderStatusModel.findByPk(shopOrder.order_status);
+            return {
+                ...OrderLine.dataValues,
+                product_name: product.name,
+                product_category: category.category_name,
+                payment_provider: userPaymentMethod.provider,
+                payment_account: userPaymentMethod.account,
+                shipping_address: address.street_number + ' ' + address.address_line1 + ', ' + address.address_line2 + ', ' + address.city + ', ' + country.country_name,
+                shipper: shippingMethod.name,
+                shipping_fee: shippingMethod.price,
+                order_status: orderStatus.status,
+            }
+        });
+        // res.status(200).json(OrderLines);
+        res.status(200).json(await Promise.all(OrderLinePromise));
     } catch (err) {
         // console.log(err);
         res.status(500).json({
@@ -24,7 +55,27 @@ exports.getOrderLineByID = async (req, res) => {
                 message: "Address not found with id " + req.params.id
             });
         }
-        res.status(200).json(OrderLine);
+        const productItem = await productItemModel.findByPk(OrderLine.product_item_id);
+        const product = await productModel.findByPk(productItem.product_id);
+        const category = await productCategoryModel.findByPk(product.category_id);
+        const shopOrder = await shopOrderModel.findByPk(OrderLine.order_id);
+        const userPaymentMethod = await userPaymentMethodModel.findByPk(shopOrder.payment_method_id);
+        const address = await AddressModel.findByPk(shopOrder.shipping_address);
+        const country = await CountryModel.findByPk(address.country_id);
+        const shippingMethod = await shippingMethodModel.findByPk(shopOrder.shipping_method);
+        const orderStatus = await orderStatusModel.findByPk(shopOrder.order_status);
+        const OrderLinePromise = {
+            ...OrderLine.dataValues,
+            product_name: product.name,
+            product_category: category.category_name,
+            payment_provider: userPaymentMethod.provider,
+            payment_account: userPaymentMethod.account,
+            shipping_address: address.street_number + ' ' + address.address_line1 + ', ' + address.address_line2 + ', ' + address.city + ', ' + country.country_name,
+            shipper: shippingMethod.name,
+            shipping_fee: shippingMethod.price,
+            order_status: orderStatus.status,
+        }
+        res.status(200).json(OrderLinePromise);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving OrderLine."

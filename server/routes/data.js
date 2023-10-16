@@ -6,6 +6,7 @@ const CountryController = require('../controllers/data/lv1/country.controller');
 const ProductCategoryController = require('../controllers/data/lv1/productCategory.controller');
 const orderStatusController = require('../controllers/data/lv1/orderStatus.controller');
 const PromotionController = require('../controllers/data/lv1/promotion.controller');
+const PaymentTypeController = require('../controllers/data/lv1/paymentType.controller');
 const ShippingMedhodController = require('../controllers/data/lv1/shippingMethod.controller');
 
 // Table with reference lv2
@@ -954,7 +955,6 @@ router.delete('/variation/:id', (req, res) => {VariationController.deleteVariati
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 
 // promotionCategory Controller
-
 /**
  * @swagger
  * /data/promotion-category:
@@ -1889,7 +1889,7 @@ router.put('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.
 */
 router.delete('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.deleteShoppingCartItem(req, res);});
 
-// Product Config Controller
+// Product Config Controller ( Là quan hệ giữa Product Item và Variation Option )
 
 router.get('/product-config', (req, res) => {ProductConfigController.getAllProductConfig(req, res);});
 router.post('/product-config', (req, res) => {ProductConfigController.createProductConfig(req, res);});

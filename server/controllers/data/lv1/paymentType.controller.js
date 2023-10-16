@@ -1,10 +1,10 @@
-const PaymentType = require('../../models/data/paymentType.model');
+const paymentType = require('../../../models/data_model/lv1/paymentType.model');
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 
 exports.getMaxID = async (req, res) => {
     try {
-        const maxID = await PaymentType.max('id');
+        const maxID = await paymentType.max('id');
         res.status(200).json(maxID);
     } catch (err) {
         res.status(500).json({
@@ -15,7 +15,7 @@ exports.getMaxID = async (req, res) => {
 
 exports.getAllPaymentType = async (req, res) => {
     try {
-        const paymentTypes = await PaymentType.findAll();
+        const paymentTypes = await paymentType.findAll();
         res.status(200).json(paymentTypes);
 
     } catch (err) {
