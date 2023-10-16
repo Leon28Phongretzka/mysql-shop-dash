@@ -1,7 +1,9 @@
 const ProductConfigModel = require('../../../models/data_model/lv4/productConfig.model');
 const productItemModel = require('../../../models/data_model/lv3/productItem.model');
+const productModel = require('../../../models/data_model/lv2/product.model');
 const variationOptionModel = require('../../../models/data_model/lv3/variationOption.model');
-
+const VariationModel = require("../../../models/data_model/lv2/variation.model");
+const productCategoryModel = require("../../../models/data_model/lv1/productCategory.model");
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");

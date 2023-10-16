@@ -1889,7 +1889,7 @@ router.put('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.
 */
 router.delete('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.deleteShoppingCartItem(req, res);});
 
-// Product Config Controller
+// Product Config Controller ( Là quan hệ giữa Product Item và Variation Option )
 
 router.get('/product-config', (req, res) => {ProductConfigController.getAllProductConfig(req, res);});
 router.post('/product-config', (req, res) => {ProductConfigController.createProductConfig(req, res);});

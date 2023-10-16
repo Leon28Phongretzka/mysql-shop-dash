@@ -7,9 +7,13 @@ const { Op } = require("sequelize");
 
 exports.getAllVariation = async (req, res) => {
     try {
-        const Variations = await VariationModel.findAll();
-        res.status(200).json(Variations)
-        
+        const Variations = await VariationModel.findAll({});
+        const variationPromises = Variations.map(async (Variation) => {
+            const category = await productCategoryModel.findByPk(Variation.category_id);
+            delete Variation.dataValues.category_id;
+            return { ...Variation.dataValues, category_name: category.category_name };
+        });
+        res.status(200).json(await Promise.all(variationPromises));        
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving Variation."
@@ -26,7 +30,9 @@ exports.getVariationByID = async (req, res) => {
                 message: "Address not found with id " + req.params.id
             });
         }
-        res.status(200).json(Variations);
+        const category = await productCategoryModel.findByPk(Variations.category_id);
+        delete Variations.dataValues.category_id;
+        res.status(200).json({ ...Variations.dataValues, category_name: category.category_name });
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving Variation."
