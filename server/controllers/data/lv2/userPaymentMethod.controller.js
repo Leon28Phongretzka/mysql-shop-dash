@@ -1,15 +1,23 @@
 const userPaymentMethodModel = require('../../../models/data_model/lv2/userPaymentMethod.model');
 const paymentType = require('../../../models/data_model/lv1/paymentType.model');
+const UserModel = require('../../../models/auth_model/user.model');
 const jwtConfig = require('../../../config/jwt.config');
 const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllUserPaymentMethod = async (req, res) => {
     try {
-        const userPaymentMethods = await userPaymentMethodModel.findAll({
-            
+        const userPaymentMethods = await userPaymentMethodModel.findAll({});
+        const userPaymentMethodPromises = userPaymentMethods.map(async (userPaymentMethod) => {
+            const payment_type = await paymentType.findByPk(userPaymentMethod.payment_type_id);
+            const user = await UserModel.findByPk(userPaymentMethod.user_id);
+            delete userPaymentMethod.dataValues.payment_type_id;
+            return { ...userPaymentMethod.dataValues, 
+                payment_type_name: payment_type.value, 
+                email_address: user.email_address 
+            };
         });
-        res.status(200).json(userPaymentMethods);
+        res.status(200).json(await Promise.all(userPaymentMethodPromises));
         
     } catch (err) {
         res.status(500).json({
