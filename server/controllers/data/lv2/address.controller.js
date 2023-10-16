@@ -24,8 +24,13 @@ exports.getCountryID = async (req, res) => {
 exports.getAllAddress = async (req, res) => {
     try {
         const addresses = await AddressModel.findAll();
-        res.status(200).json(addresses);
-
+        const addressPromises = addresses.map(async (address) => {
+            const country = await CountryModel.findByPk(address.country_id);
+            delete address.dataValues.country_id;
+            return { ...address.dataValues, country_name: country.country_name };
+        });
+        const addressWithCountry = await Promise.all(addressPromises);
+        res.status(200).json(addressWithCountry);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving addresses."
@@ -41,8 +46,10 @@ exports.getAddress = async (req, res) => {
                 message: "Address not found with id " + req.params.id
             });
         }
-        res.status(200).json(address);
-
+        const country = await CountryModel.findByPk(address.country_id);
+        delete address.dataValues.country_id;
+        const addressWithCountry = { ...address.dataValues, country_name: country.country_name };
+        res.status(200).json(addressWithCountry);
     } catch (err) {
         res.status(500).json({
             message: err.message || "Some error occurred while retrieving address."

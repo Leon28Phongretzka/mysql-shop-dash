@@ -70,7 +70,7 @@ exports.refreshToken = async (req, res) => {
 
 
 exports.getUser = async (req, res) => {
-    const user = await AuthService.findUserById(req.user.id);  
+    const user = await AuthService.findUserById(req.params.id);  
     return res.json({
         data: user,
         message: 'Success.'
