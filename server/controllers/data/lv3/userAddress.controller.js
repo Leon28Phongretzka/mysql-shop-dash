@@ -31,7 +31,7 @@ exports.getAllUserAddress = async (req, res) => {
 
 exports.getUserAddressByID = async (req, res) => {
     try {
-        const UserAddress = await UserAddressModel.findByPk(req.params.id);
+        const UserAddress = await UserAddressModel.findByPk(req.body.user_id);
         if (!UserAddress) {
             return res.status(404).json({
                 message: "Address not found with id " + req.params.id
@@ -57,9 +57,6 @@ exports.getUserAddressByID = async (req, res) => {
 
 exports.createUserAddress = async (req, res) => {
     try {
-        const Address = await AddressModel.create({
-            
-        })
         const UserAddress = await UserAddressModel.create({
             user_id: req.body.user_id,
             address_id: req.body.address_id,

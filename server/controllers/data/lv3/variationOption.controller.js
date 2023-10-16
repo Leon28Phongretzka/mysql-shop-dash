@@ -78,7 +78,7 @@ exports.updateVariationOption = async (req, res) => {
         const variationOptions = await VariationOptionModel.findByPk(req.params.id);
         if (!variationOptions) {
             return res.status(404).json({
-                message: "Address not found with id " + req.params.id
+                message: "Can not find variation option with id " + req.params.id
             });
         }
         const variation = await VariationModel.findOne({
