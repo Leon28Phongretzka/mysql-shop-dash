@@ -42,7 +42,7 @@ exports.getVariationByID = async (req, res) => {
 
 exports.createVariation = async (req, res) => {
     try {
-        const category_id = await productCategoryModel.findOne({
+        const category = await productCategoryModel.findOne({
             where: {
                 category_name : req.body.category_name
             }
@@ -51,7 +51,7 @@ exports.createVariation = async (req, res) => {
         const maxID = await VariationModel.max('id');
         const Variations = {
             id: maxID + 1,
-            category_id: category_id.id,
+            category_id: category.id,
             name: req.body.name,
         }
         console.log(Variations);
