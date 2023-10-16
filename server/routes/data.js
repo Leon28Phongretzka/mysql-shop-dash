@@ -230,7 +230,6 @@ router.put('/product-category/:id', (req, res) => {ProductCategoryController.upd
 router.delete('/product-category/:id', (req, res) => {ProductCategoryController.deleteProductCategory(req, res);});
 
 // Order Status Controller
-// Product Category Controller
 /**
  * @swagger
  * /data/orderStatus:
@@ -248,7 +247,6 @@ router.delete('/product-category/:id', (req, res) => {ProductCategoryController.
 router.get('/orderStatus', (req, res) => {orderStatusController.getAllOrderStatus(req, res);});
 
 // Payment Type Controller
-// Product Category Controller
 /**
  * @swagger
  * /data/payment-type:
@@ -570,7 +568,6 @@ router.delete('/address/:id', (req, res) => {AddressController.deleteAddress(req
  * 
  */
 router.get('/product', (req, res) => {ProductController.getAllProduct(req, res);});
-
 /**
 * @swagger
 * /data/product/{id}:
@@ -795,7 +792,6 @@ router.post('/shopping-cart', (req, res) => {ShoppingCartController.createShoppi
 router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateShoppingCart(req, res);});
 
 //Variation Controller
-
 /**
  * @swagger
  * /data/variation:
@@ -811,7 +807,6 @@ router.put('/shopping-cart/:id', (req, res) => {ShoppingCartController.updateSho
  * 
  */
 router.get('/variation', (req, res) => {VariationController.getAllVariation(req, res);});
-
 /**
 * @swagger
 * /data/variation/{id}:
@@ -833,12 +828,6 @@ router.get('/variation', (req, res) => {VariationController.getAllVariation(req,
 *         description: Không tìm thấy variation theo ID.
 */
 router.get('/variation/:id', (req, res) => {VariationController.getVariationByID(req, res)})
-router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});
-router.put('/variation/:id', (req, res) => {VariationController.updateVariation(req, res);});
-router.delete('/variation/:id', (req, res) => {VariationController.deleteVariation(req, res);});
-
-// userPaymentMethod Controller
-router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 /**
  * @swagger
  * /data/variation:
@@ -850,14 +839,14 @@ router.get('/user-payment-method', (req, res) => {userPaymentMethodController.ge
  *        description: ID danh mục variation
  *        in: formData
  *        required: true
- *        type: integer
- *      - name: category_name
- *        description: ID
- *        in: formData
- *        required: true
  *        type: number
  *      - name: name
  *        description: Tên được biến đổi
+ *        in: formData
+ *        required: true
+ *        type: string
+ *      - name: category_name
+ *        description: category
  *        in: formData
  *        required: true
  *        type: string
@@ -872,12 +861,6 @@ router.get('/user-payment-method', (req, res) => {userPaymentMethodController.ge
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/variation', (req, res) => {VariationController.createVariation(req, res);});
-
-// promotionCategory Controller
-router.get('/promotion-category', (req, res) => {promotionCategoryController.getAllPromotionCategory(req, res);});
-router.get('/promotion-category/:id', (req, res) => {promotionCategoryController.getPromotionCategoryById(req, res);});
-router.post('/promotion-category', (req, res) => {promotionCategoryController.createPromotionCategory(req, res);});
-router.put('/promotion-category/:id', (req, res) => {promotionCategoryController.updatePromotionCategory(req, res);});
 /**
  * @swagger
  * /data/varation/{id}:
@@ -885,12 +868,6 @@ router.put('/promotion-category/:id', (req, res) => {promotionCategoryController
  *     tags: [Variation]
  *     description: Sửa danh mục variation
  *     parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        schema:
- *            type: string
- *            description: ID của danh mục variation
  *      - name: category_name
  *        description: Tên danh mục variation
  *        in: formData
@@ -912,7 +889,7 @@ router.put('/promotion-category/:id', (req, res) => {promotionCategoryController
  *         description: Lỗi máy chủ nội bộ
  */
 router.put('/variation/:id', (req, res) => {VariationController.updateVariation(req, res);});
-
+// promotionCategory Controller
 /**
 * @swagger
 * /data/variation/{id}:
@@ -938,6 +915,7 @@ router.put('/variation/:id', (req, res) => {VariationController.updateVariation(
 router.delete('/variation/:id', (req, res) => {VariationController.deleteVariation(req, res);});
 
 // userPaymentMethod Controller
+router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
 /**
  * @swagger
  * /data/user-payment-method:
@@ -953,7 +931,6 @@ router.delete('/variation/:id', (req, res) => {VariationController.deleteVariati
  * 
  */ 
 router.get('/user-payment-method', (req, res) => {userPaymentMethodController.getAllUserPaymentMethod(req, res);});
-
 // promotionCategory Controller
 /**
  * @swagger
@@ -970,7 +947,6 @@ router.get('/user-payment-method', (req, res) => {userPaymentMethodController.ge
  * 
  */ 
 router.get('/promotion-category', (req, res) => {promotionCategoryController.getAllPromotionCategory(req, res);});
-
 /**
 * @swagger
 * /data/promotion-category/{id}:
@@ -992,7 +968,6 @@ router.get('/promotion-category', (req, res) => {promotionCategoryController.get
 *         description: Không tìm thấy danh mục promotion theo ID.
 */
 router.get('/promotion-category/:id', (req, res) => {promotionCategoryController.getPromotionCategoryById(req, res);});
-
 /**
  * @swagger
  * /data/promotion-category:
@@ -1005,11 +980,11 @@ router.get('/promotion-category/:id', (req, res) => {promotionCategoryController
  *        in: formData
  *        required: true
  *        type: string
- *      - name: category_id
- *        description: ID danh mục khuyến mãi
+ *      - name: category_name
+ *        description: danh mục khuyến mãi
  *        in: formData
  *        required: true
- *        type: number
+ *        type: string
  *     responses:
  *       201:
  *         description: Created
@@ -1021,7 +996,6 @@ router.get('/promotion-category/:id', (req, res) => {promotionCategoryController
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/promotion-category', (req, res) => {promotionCategoryController.createPromotionCategory(req, res);});
-
 /**
  * @swagger
  * /data/promotion-category/{id}:
@@ -1040,11 +1014,11 @@ router.post('/promotion-category', (req, res) => {promotionCategoryController.cr
  *        in: formData
  *        required: true
  *        type: string
- *      - name: category_id
- *        description: ID danh mục khuyến mãi
+ *      - name: category_name
+ *        description: danh mục khuyến mãi
  *        in: formData
  *        required: true
- *        type: number
+ *        type: string
  *     responses:
  *       201:
  *         description: Created
@@ -1056,7 +1030,6 @@ router.post('/promotion-category', (req, res) => {promotionCategoryController.cr
  *         description: Lỗi máy chủ nội bộ
  */
 router.put('/promotion-category/:id', (req, res) => {promotionCategoryController.updatePromotionCategory(req, res);});
-
 /**
 * @swagger
 * /data/promotion-category/{id}:
@@ -1081,9 +1054,9 @@ router.put('/promotion-category/:id', (req, res) => {promotionCategoryController
 */
 router.delete('/promotion-category/:id', (req, res) => {promotionCategoryController.deletePromotionCategory(req, res);});
 
+
 /// Table with reference lv3
 // VariationOption Controller
-
 /**
  * @swagger
  * /data/variation-option:
@@ -1099,7 +1072,6 @@ router.delete('/promotion-category/:id', (req, res) => {promotionCategoryControl
  * 
  */ 
 router.get('/variation-option', (req, res) => {VariationOptionController.getAllVariationOption(req, res);});
-
 /**
 * @swagger
 * /data/variation-option/{id}:
@@ -1121,7 +1093,6 @@ router.get('/variation-option', (req, res) => {VariationOptionController.getAllV
 *         description: Không tìm thấy theo ID.
 */
 router.get('/variation-option/:id', (req, res) => {VariationOptionController.getVariationOptionID(req, res)})
-
 /**
  * @swagger
  * /data/variation-option:
@@ -1155,7 +1126,6 @@ router.get('/variation-option/:id', (req, res) => {VariationOptionController.get
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/variation-option', (req, res) => {VariationOptionController.createVariationOption(req, res);});
-
 /**
  * @swagger
  * /data/variation-option/{id}:
@@ -1197,7 +1167,6 @@ router.post('/variation-option', (req, res) => {VariationOptionController.create
 router.put('/variation-option/:id', (req, res) => {VariationOptionController.updateVariationOption(req, res);});
 
 // Product Item Controller
-
 /**
  * @swagger
  * /data/product-item:
@@ -1213,7 +1182,6 @@ router.put('/variation-option/:id', (req, res) => {VariationOptionController.upd
  * 
  */ 
 router.get('/product-item', (req, res) => {ProductItemController.getAllProductItem(req, res);});
-
 /**
 * @swagger
 * /data/product-item/{id}:
@@ -1235,7 +1203,6 @@ router.get('/product-item', (req, res) => {ProductItemController.getAllProductIt
 *         description: Không tìm thấy sản phẩm theo ID.
 */
 router.get('/product-item/:id', (req, res) => {ProductItemController.getProductItemByID(req, res);});
-
 /**
  * @swagger
  * /data/product-item:
@@ -1274,7 +1241,6 @@ router.get('/product-item/:id', (req, res) => {ProductItemController.getProductI
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/product-item', (req, res) => {ProductItemController.createProductItem(req, res);});
-
 /**
  * @swagger
  * /data/product-item/{id}:
@@ -1318,8 +1284,7 @@ router.post('/product-item', (req, res) => {ProductItemController.createProductI
  *       500:
  *         description: Lỗi máy chủ nội bộ
  */
-router.put('/product-item/:id', (req, res) => {ProductItemController.updateProductItem(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
-
+router.put('/product-item/:id', (req, res) => {ProductItemController.updateProductItem(req, res);});
 /**
 * @swagger
 * /data/product-item/{id}:
@@ -1345,7 +1310,6 @@ router.put('/product-item/:id', (req, res) => {ProductItemController.updateProdu
 router.delete('/product-item/:id', (req, res) => {ProductItemController.deleteProductItem(req, res);});
 
 // User Address Controller
-
 /**
  * @swagger
  * /data/user-address:
@@ -1361,7 +1325,6 @@ router.delete('/product-item/:id', (req, res) => {ProductItemController.deletePr
  * 
  */ 
 router.get('/user-address', (req, res) => {UserAddressController.getAllUserAddress(req, res);});
-
 /**
 * @swagger
 * /data/user-address/{id}:
@@ -1383,7 +1346,6 @@ router.get('/user-address', (req, res) => {UserAddressController.getAllUserAddre
 *         description: Không tìm thấy địa chỉ khách hàng theo ID.
 */
 router.get('/user-address/:id', (req, res) => {UserAddressController.getUserAddressByID(req, res);});
-
 /**
  * @swagger
  * /data/user-address:
@@ -1417,7 +1379,6 @@ router.get('/user-address/:id', (req, res) => {UserAddressController.getUserAddr
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/user-address', (req, res) => {UserAddressController.createUserAddress(req, res);});
-
 /**
  * @swagger
  * /data/user-address/{id}:
@@ -1457,7 +1418,6 @@ router.post('/user-address', (req, res) => {UserAddressController.createUserAddr
  *         description: Lỗi máy chủ nội bộ
  */
 router.put('/user-address/:id', (req, res) => {UserAddressController.updateUserAddress(req, res);});
-
 /**
 * @swagger
 * /data/user-address/{id}:
@@ -1483,7 +1443,6 @@ router.put('/user-address/:id', (req, res) => {UserAddressController.updateUserA
 router.delete('/user-address/:id', (req, res) => {UserAddressController.deleteUserAddress(req, res);});
 
 // Shop Order Controller
-
 /**
  * @swagger
  * /data/shop-order:
@@ -1499,7 +1458,6 @@ router.delete('/user-address/:id', (req, res) => {UserAddressController.deleteUs
  * 
  */ 
 router.get('/shop-order', (req, res) => {shopOrderController.getAllShopOrder(req, res);});
-
 /**
 * @swagger
 * /data/shop-order/{id}:
@@ -1521,7 +1479,6 @@ router.get('/shop-order', (req, res) => {shopOrderController.getAllShopOrder(req
 *         description: Không tìm thấy phương thức theo ID.
 */
 router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByID(req, res);});
-
 /**
  * @swagger
  * /data/shop-order:
@@ -1570,7 +1527,6 @@ router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByI
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/shop-order', (req, res) => {shopOrderController.createShopOrder(req, res);});
-
 /**
  * @swagger
  * /data/shop-order/{id}:
@@ -1644,7 +1600,6 @@ router.put('/shop-order/:id', (req, res) => {shopOrderController.updateShopOrder
  * 
  */ 
 router.get('/order-line', (req, res) => {OrderLineController.getAllOrderLine(req, res);});
-
 /**
 * @swagger
 * /data/order-line/{id}:
@@ -1666,7 +1621,6 @@ router.get('/order-line', (req, res) => {OrderLineController.getAllOrderLine(req
 *         description: Không tìm thấy giỏ hàng theo ID.
 */
 router.get('/order-line/:id', (req, res) => {OrderLineController.getOrderLineByID(req, res);});
-
 /**
  * @swagger
  * /data/order-line:
@@ -1705,7 +1659,6 @@ router.get('/order-line/:id', (req, res) => {OrderLineController.getOrderLineByI
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/order-line', (req, res) => {OrderLineController.createOrderLine(req, res);});//, jwtUtil.verifyAccessToken, jwtUtil.verifyAdminRole
-
 /**
  * @swagger
  * /data/order-line/{id}:
@@ -1768,7 +1721,6 @@ router.put('/order-line/:id', (req, res) => {OrderLineController.updateOrderLine
  * 
  */ 
 router.get('/shopping-cart-item', (req, res) => {ShoppingCartItemController.getAllShoppingCartItem(req, res);});
-
 /**
 * @swagger
 * /data/shopping-cart-item/{id}:
@@ -1790,7 +1742,6 @@ router.get('/shopping-cart-item', (req, res) => {ShoppingCartItemController.getA
 *         description: Không tìm thấy giỏ hàng theo ID.
 */
 router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.getShoppingCartItemByID(req, res);});
-
 /**
  * @swagger
  * /data/shopping-cart-item:
@@ -1824,7 +1775,6 @@ router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/shopping-cart-item', (req, res) => {ShoppingCartItemController.createShoppingCartItem(req, res);});   
-
 /**
  * @swagger
  * /data/shopping-cart-item/{id}:
@@ -1864,7 +1814,6 @@ router.post('/shopping-cart-item', (req, res) => {ShoppingCartItemController.cre
  *         description: Lỗi máy chủ nội bộ
  */
 router.put('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.updateShoppingCartItem(req, res);});
-
 /**
 * @swagger
 * /data/shopping-cart-item/{id}:
@@ -1913,7 +1862,6 @@ router.delete('/product-config/:id', (req, res) => {ProductConfigController.dele
  * 
  */ 
 router.get('/user-review', (req, res) => {UserReviewController.getAllUserReview(req, res);});
-
 /**
 * @swagger
 * /data/user-review/{id}:
@@ -1935,7 +1883,6 @@ router.get('/user-review', (req, res) => {UserReviewController.getAllUserReview(
 *         description: Không tìm thấy dữ liệu theo ID.
 */
 router.get('/user-review/:id', (req, res) => {UserReviewController.getUserReviewByID(req, res);});
-
 /**
  * @swagger
  * /data/user-review:
@@ -1979,7 +1926,6 @@ router.get('/user-review/:id', (req, res) => {UserReviewController.getUserReview
  *         description: Lỗi máy chủ nội bộ
  */
 router.post('/user-review', (req, res) => {UserReviewController.createUserReview(req, res);});
-
 /**
  * @swagger
  * /data/user-review/{id}:
@@ -2029,7 +1975,6 @@ router.post('/user-review', (req, res) => {UserReviewController.createUserReview
  *         description: Lỗi máy chủ nội bộ
  */
 router.put('/user-review/:id', (req, res) => {UserReviewController.updateUserReview(req, res);});
-
 /**
 * @swagger
 * /data/user-review/{id}:

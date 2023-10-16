@@ -84,17 +84,17 @@ exports.updatePromotionCategory = async (req, res) => {
                 message: "PromotionCategory not found with id " + req.params.id
             });
         }
-        const promotion_id = await PromotionModel.findOne({
+        const promotion = await PromotionModel.findOne({
             where: {
                 name: req.body.promotion_name
             }
         })
         const updatedPromotionCategory = await PromotionCategoryModel.update({
             category_id: req.body.category_id,
-            promotion_id: promotion_id.id
+            promotion_id: promotion.id
         }, {
             where: {
-                id: req.params.id
+                category_id: req.params.id
             }
         });
         console.log(">> Updated promotionCategory: " + JSON.stringify(updatedPromotionCategory, null, 4));
