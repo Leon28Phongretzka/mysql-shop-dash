@@ -29,7 +29,7 @@ exports.getAllCountry = async (req, res) => {
 
 exports.getCountryById = async (req, res) => {
     // SQL script for getCountry with id in path
-    // SELECT * FROM country WHERE id = <id>;
+    // SELECT * FROM country WHERE id = :id;
     try {
         const country = await CountryModel.findByPk(req.params.id);
         if (!country) {
@@ -47,7 +47,7 @@ exports.getCountryById = async (req, res) => {
 
 exports.addCountry = async (req, res) => {
     // SQL script for addCountry with id and country from formData
-    // INSERT INTO country (id, country_name) VALUES (?, ?);
+    // INSERT INTO country (id, country_name) VALUES (:id, :country_name);
     try {
         const maxID = await CountryModel.max('id');
         const country = {

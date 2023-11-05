@@ -28,6 +28,8 @@ exports.getAllPaymentType = async (req, res) => {
 }
 
 exports.updatePaymentType = async (req, res) => {
+    // SQL script to update Payment Type with id in path
+    // UPDATE payment_type SET type_name = :type_name WHERE id = :id;
     try {
         const paymentType = await PaymentType.findByPk(req.params.id);
         if (!paymentType) {

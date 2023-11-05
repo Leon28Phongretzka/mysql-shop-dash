@@ -14,8 +14,8 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllProductCategory = async (req, res) => {
-    // SQL script to get ALl product categories
-    // SELECT * FROM product_categories;
+    // SQL script to get ALl product category
+    // SELECT * FROM product_category;
     try {
         const productCategories = await ProductCategoryModel.findAll();
         res.status(200).json(productCategories);
@@ -28,6 +28,8 @@ exports.getAllProductCategory = async (req, res) => {
 }
 
 exports.getProductCategoryById = async (req, res) => {
+    // Truy vấn SQL lấy product category với id trong path
+    // SELECT * FROM product_category WHERE id = :id;
     try {
         const productCategory = await ProductCategoryModel.findByPk(req.params.id);
         const maxID = await ProductCategoryModel.max('id');
@@ -46,6 +48,8 @@ exports.getProductCategoryById = async (req, res) => {
 }
 
 exports.createProductCategory = async (req, res) => {
+    // SQL script to add product category with id and category_name from formData
+    // INSERT INTO product_category (id, category_name) VALUES (:id, :category_name);
     try {
         const maxID = await ProductCategoryModel.max('id');
         const productCategory = {
@@ -80,6 +84,8 @@ exports.createProductCategory = async (req, res) => {
 }
 
 exports.updateProductCategory = async (req, res) => {
+    // SQL script to update product category with id in path
+    // UPDATE product_category SET category_name = :category_name WHERE id = :id;
     try {
         const productCategory = await ProductCategoryModel.findByPk(req.params.id);
         if (!productCategory) {
@@ -97,6 +103,8 @@ exports.updateProductCategory = async (req, res) => {
 }
 
 exports.deleteProductCategory = async (req, res) => {
+    // SQL script to delete product category with id in path
+    // DELETE FROM product_category WHERE id = :id;
     try {
         const productCategory = await ProductCategoryModel.findByPk(req.params.id);
         if (!productCategory) {

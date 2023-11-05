@@ -15,7 +15,7 @@ exports.getMaxID = async (req, res) => {
 
 exports.getAllOrderStatus = async (req, res) => {
     // SQL script get all orderStatus
-    // SELECT * FROM orderStatus;
+    // SELECT * FROM order_status;
     try {
         const orderStatuses = await orderStatusModel.findAll();
         res.status(200).json(orderStatuses);

@@ -10,6 +10,7 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllShopOrder = async (req, res) => {
+    // Truy vấn SQL lấy tất cả các ShopOrder từ bảng shop_order
     try {
         const ShopOrders = await ShopOrderModel.findAll();
         const ShopOrderPromise = ShopOrders.map(async (ShopOrder) => {

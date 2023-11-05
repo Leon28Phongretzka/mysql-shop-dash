@@ -28,6 +28,9 @@ exports.getAllPromotion = async (req, res) => {
 }
 
 exports.getExpriedPromotion = async (req, res) => {
+    // SQL script to get expired promotion
+    // SELECT * FROM promotion WHERE end_date < current_date;
+
     try {
         const currentDate = new Date();
         const promotions = await PromotionModel.findAll({
@@ -46,6 +49,8 @@ exports.getExpriedPromotion = async (req, res) => {
 }
 
 exports.createPromotion = async( req, res) => {
+    // SQL script to add promotion with id and name from formData
+    // INSERT INTO promotion (id, name, description, start_date, end_date, discount_rate) VALUES (:id, :name, :description, :start_date, :end_date, :discount_rate);
     try {
         const maxID = await PromotionModel.max('id');
         const promotion = {
