@@ -7,6 +7,8 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllProductItem = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả productItem và thay thế product_id bằng tên product với product_name được lấy từ bảng product thông qua product_id
+    // SELECT product_item.*, product.name FROM product_item INNER JOIN product ON product_item.product_id = product.id ORDER BY id;
     try {
         const productItems = await productItemModel.findAll();
         const productItemPromises = productItems.map(async (productItem) => {
@@ -30,6 +32,8 @@ exports.getAllProductItem = async (req, res) => {
     }
 }
 exports.getProductItemByID = async (req, res) => {
+    // Truy vấn SQL để lấy 1 productItem theo id và thay thế product_id bằng tên product với product_name được lấy từ bảng product thông qua product_id
+    // SELECT product_item.*, product.name FROM product_item INNER JOIN product ON product_item.product_id = product.id WHERE product_item.id = :id;
     try {
         const ProductItem = await productItemModel.findByPk(req.params.id);
         if (!ProductItem) {
@@ -55,6 +59,8 @@ exports.getProductItemByID = async (req, res) => {
 }
 
 exports.createProductItem = async (req, res) => {
+    // Truy vấn SQL để tạo ProductItem mới, lấy product_id từ product thông qua product_name, sử dụng INSERT
+    // INSERT INTO product_item (id, product_id, SKU, quantity_in_stock, price) SELECT :id, p.id, :SKU, :quantity_in_stock, :price FROM product p WHERE p.name = :product_name LIMIT 1;
     try {
         const product = await productModel.findOne({
             where: {
@@ -85,6 +91,8 @@ exports.createProductItem = async (req, res) => {
 }
 
 exports.updateProductItem = async (req, res) => {
+    // Truy vấn SQL để cập nhật ProductItem theo id, lấy product_id từ product thông qua product_name, sử dụng UPDATE
+    // UPDATE product_item SET product_id = (SELECT p.id FROM product p WHERE p.name = :product_name LIMIT 1), SKU = :SKU, quantity_in_stock = :quantity_in_stock, price = :price WHERE id = :id;
     try {
         const product = await productModel.findOne({
             where: {
@@ -111,6 +119,8 @@ exports.updateProductItem = async (req, res) => {
 }
 
 exports.deleteProductItem = async (req, res) => {
+    // Truy vấn SQL để xóa ProductItem theo id
+    // DELETE FROM product_item WHERE id = :id;
     try {
         const deletedProductItem = await productItemModel.destroy({
             where: {

@@ -17,6 +17,8 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllProduct = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả sản phẩm và thay thế category_id bằng tên danh mục sản phẩm với category_name được lấy từ bảng product_category thông qua category_id
+    // SELECT product.*, product_category.category_name FROM product INNER JOIN product_category ON product.category_id = product_category.id ORDER BY id;
     try {
         const products = await productModel.findAll();
         const productPromises = products.map(async (product) => {
@@ -34,6 +36,8 @@ exports.getAllProduct = async (req, res) => {
 }
 
 exports.getProductById = async (req, res) => {
+    // Truy vấn SQL để lấy sản phẩm với id được nhập và thay thế category_id bằng tên danh mục sản phẩm với category_name được lấy từ bảng product_category thông qua category_id
+    // SELECT product.*, product_category.category_name FROM product INNER JOIN product_category ON product.category_id = product_category.id WHERE product.id = :id;
     try {
         const product = await productModel.findByPk(req.params.id);
         if (!product) {
@@ -54,6 +58,12 @@ exports.getProductById = async (req, res) => {
 }
 
 exports.createProduct = async (req, res) => {
+    // Truy vấn SQL để tạo sản phẩm mới với id là chỉ sổ tăng tự động, category_id được lấy từ bảng product_category thông qua category_name
+    // INSERT INTO product (id, name, description, product_image, category_id)
+    // SELECT :id, :name, :description, :product_image, pc.id
+    // FROM product_category pc
+    // JOIN product p ON pc.category_name = :category_name
+    // LIMIT 1;
     const maxID = await productModel.max('id');
     const category_id = await productCategoryModel.findOne({
         where: {
@@ -78,6 +88,10 @@ exports.createProduct = async (req, res) => {
 }
 
 exports.updateProduct = async (req, res) => {
+    // Truy vấn SQL để sửa sản phẩm với id là chỉ sổ tăng tự động, category_id được lấy từ bảng product_category thông qua category_name, sử dụng UPDATE và JOIN
+
+    // UPDATE product p JOIN product_category pc ON p.category_id = pc.id SET p.name = :name, p.description = :description, p.product_image = :product_image, p.category_id = pc.id WHERE p.id = :id;
+
     const category_id = await productCategoryModel.findOne({
         where: {
             category_name: req.body.category_name
@@ -104,6 +118,9 @@ exports.updateProduct = async (req, res) => {
 }
 
 exports.deleteProduct = async (req, res) => {
+    // Truy vấn SQL để xóa sản phẩm với id được nhập
+
+    // DELETE FROM product WHERE id = :id;
     try {
         const product = await productModel.findByPk(req.params.id);
         if (!product) {

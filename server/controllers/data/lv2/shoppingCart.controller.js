@@ -16,6 +16,9 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllShoppingCarts = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả shopping_cart và thay thế user_id bằng email_address với email_address được lấy từ bảng user thông qua user_id
+
+    // SELECT shopping_cart.*, user.email_address FROM shopping_cart INNER JOIN user ON shopping_cart.user_id = user.id ORDER BY id;
     try {
         const Carts = await shoppingCartModel.findAll();
         const cartPromises = Carts.map(async (cart) => {
@@ -32,6 +35,10 @@ exports.getAllShoppingCarts = async (req, res) => {
 }
 
 exports.getShoppingCartsByUserID = async (req, res) => {
+    // Truy vấn SQL để lấy shopping_cart tương ứng và thay thế user_id bằng email_address với email_address được lấy từ bảng site_user thông qua user_id
+
+    // SELECT shopping_cart.*, site_user.email_address FROM shopping_cart INNER JOIN site_user ON shopping_cart.user_id = site_user.id WHERE shopping_cart.user_id = :id LIMIT 1;
+
     try {
         const Cart = await shoppingCartModel.findAll({
             where: {
@@ -54,6 +61,10 @@ exports.getShoppingCartsByUserID = async (req, res) => {
 }
 
 exports.createShoppingCart = async (req, res) => {
+    // Truy vấn SQL để tạo shopping_cart mới với id là chỉ sổ tăng tự động, user_id được lấy từ bảng site_user thông qua email_address
+
+    // INSERT INTO shopping_cart (id, user_id) SELECT :id, su.user_id FROM site_user su WHERE su.email_address = :email_address LIMIT 1;
+    // When input - the email address of the user is in "<email>"
     try {
         const user_id = await UserModel.findOne({
             where: {
@@ -77,6 +88,9 @@ exports.createShoppingCart = async (req, res) => {
 }
 
 exports.updateShoppingCart = async (req, res) => {
+    // Truy vấn SQL để cập nhật shopping_cart với id được nhập và thay thế user_id bằng email_address với email_address được lấy từ bảng site_user thông qua user_id
+
+    // UPDATE shopping_cart SET user_id = (SELECT su.user_id FROM site_user su WHERE su.email_address = :email_address LIMIT 1) WHERE id = :id;
     try {
         const cart = await shoppingCartModel.findOne({
             where: {

@@ -6,6 +6,9 @@ const { Op } = require("sequelize");
 
 
 exports.getAllVariation = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả Variation và thay thế category_id bằng tên category với category_name được lấy từ bảng product_category thông qua category_id
+
+    // SELECT variation.*, product_category.category_name FROM variation INNER JOIN product_category ON variation.category_id = product_category.id ORDER BY id;
     try {
         const Variations = await VariationModel.findAll({});
         const variationPromises = Variations.map(async (Variation) => {
@@ -23,6 +26,8 @@ exports.getAllVariation = async (req, res) => {
 }
 
 exports.getVariationByID = async (req, res) => {
+    // Truy vấn SQL để lấy 1 Variation theo id và thay thế category_id bằng tên category với category_name được lấy từ bảng product_category thông qua category_id
+    // SELECT variation.*, product_category.category_name FROM variation INNER JOIN product_category ON variation.category_id = product_category.id WHERE variation.id = :id;
     try {
         const Variations = await VariationModel.findByPk(req.params.id);
         if (!Variations) {
@@ -41,6 +46,9 @@ exports.getVariationByID = async (req, res) => {
 }
 
 exports.createVariation = async (req, res) => {
+    // Truy vấn SQL để tạo Variation mới, lấy category_id từ product_category thông qua category_name, sử dụng INSERT và JOIN
+
+    // INSERT INTO variation (id, category_id, name) SELECT :id, pc.id, :name FROM product_category pc WHERE pc.category_name = :category_name;
     try {
         const category = await productCategoryModel.findOne({
             where: {
@@ -65,6 +73,9 @@ exports.createVariation = async (req, res) => {
 }
 
 exports.updateVariation = async (req, res) => {
+    // Truy vấn SQL để cập nhật Variation theo id, lấy category_id từ product_category thông qua category_name, sử dụng UPDATE và JOIN
+
+    // UPDATE variation v SET v.category_id = (SELECT pc.id FROM product_category pc WHERE pc.category_name = :category_name LIMIT 1), v.name = :name WHERE v.id = :id;
     try {
         const Variations = await VariationModel.findByPk(req.params.id);
         if (!Variations) {
@@ -93,6 +104,9 @@ exports.updateVariation = async (req, res) => {
 }
 
 exports.deleteVariation = async (req, res) => {
+    // Truy vấn SQL để xóa Variation theo id
+    // DELETE FROM variation WHERE id = :id;
+
     try {
         const Variations = await VariationModel.findByPk(req.params.id);
         if (!Variations) {

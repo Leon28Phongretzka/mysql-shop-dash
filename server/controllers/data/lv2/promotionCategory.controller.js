@@ -6,6 +6,8 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllPromotionCategory = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả promotionCategory và thay thế promotion_id bằng tên promotion với promotion_name được lấy từ bảng promotion thông qua promotion_id
+
     try {
         const promotionCategories = await PromotionCategoryModel.findAll();
         const promotionCategoryPromise = promotionCategories.map(async (promotionCategory) => {

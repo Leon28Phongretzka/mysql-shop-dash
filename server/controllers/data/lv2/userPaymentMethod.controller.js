@@ -6,6 +6,8 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllUserPaymentMethod = async (req, res) => {
+    // Truy vấn SQL để lấy tất cả userPaymentMethod và thay thế payment_type_id bằng tên payment_type với payment_type_name được lấy từ bảng payment_type thông qua payment_type_id
+    // SELECT user_payment_method.*, payment_type.value FROM user_payment_method INNER JOIN payment_type ON user_payment_method.payment_type_id = payment_type.id ORDER BY id;
     try {
         const userPaymentMethods = await userPaymentMethodModel.findAll({});
         const userPaymentMethodPromises = userPaymentMethods.map(async (userPaymentMethod) => {
@@ -27,6 +29,9 @@ exports.getAllUserPaymentMethod = async (req, res) => {
 }
 
 exports.getUserPaymentMethodById = async (req, res) => {
+    // Truy vấn SQL để lấy userPaymentMethod theo id và thay thế payment_type_id bằng tên payment_type với payment_type_name được lấy từ bảng payment_type thông qua payment_type_id
+
+    // SELECT user_payment_method.*, payment_type.value FROM user_payment_method INNER JOIN payment_type ON user_payment_method.payment_type_id = payment_type.id WHERE user_payment_method.id = :id;
     try {
         
         const userPaymentMethod = await userPaymentMethodModel.findByPk(req.params.id);
@@ -44,6 +49,13 @@ exports.getUserPaymentMethodById = async (req, res) => {
 }
 
 exports.createUserPaymentMethod = async (req, res) => {
+    // Truy vấn SQL để tạo userPaymentMethod mới cho người dùng, lấy payment_type_id từ payment_type thông qua payment_type_name, sử dụng INSERT và JOIN
+
+    // INSERT INTO user_payment_method (id, user_id, payment_type_id, provider, account_number, is_default)
+    // SELECT :id, :user_id, pt.id, :provider, :account_number, :is_default
+    // FROM payment_type pt
+    // WHERE pt.value = :payment_type_name;
+
     try {
         const payment_type_id = await paymentType.findOne({ 
             where: { 
@@ -56,7 +68,6 @@ exports.createUserPaymentMethod = async (req, res) => {
             user_id: req.body.user_id,
             payment_type_id: payment_type_id.id,
             provider: req.body.provider,
-            payment_account: req.body.payment_account,
             account_number: req.body.account_number,
             is_default: req.body.is_default
         }
