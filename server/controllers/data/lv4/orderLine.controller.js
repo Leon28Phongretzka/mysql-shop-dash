@@ -14,6 +14,8 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllOrderLine = async (req, res) => {
+    // Truy vấn SQL lấy tất cả các OrderLine từ bảng order_line, với các trường: id, order_id, product_item_id, quantity, price, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status
+    // SELECT ol.id, ol.order_id, ol.product_item_id, ol.quantity, ol.price, p.name AS product_name, pc.category_name AS product_category, upm.provider AS payment_provider, upm.account_number AS payment_account, CONCAT(sa.street_number, ' ', sa.address_line1, ', ', sa.address_line2, ', ', sa.city, ', ', c.country_name) AS shipping_address, sm.name AS shipper, sm.price AS shipping_fee, os.status AS order_status FROM order_line AS ol JOIN product_item AS pi ON ol.product_item_id = pi.id JOIN product AS p ON pi.product_id = p.id JOIN product_category AS pc ON p.category_id = pc.id JOIN shop_order AS so ON ol.order_id = so.id JOIN user_payment_method AS upm ON so.payment_method_id = upm.id JOIN address AS sa ON so.shipping_address = sa.id JOIN shipping_method AS sm ON so.shipping_method = sm.id JOIN order_status AS os ON so.order_status = os.id JOIN country AS c ON sa.country_id = c.id;
     try {
         const OrderLines = await OrderLineModel.findAll();
         const OrderLinePromise = OrderLines.map(async (OrderLine) => {
@@ -48,6 +50,8 @@ exports.getAllOrderLine = async (req, res) => {
     }
 }
 exports.getOrderLineByID = async (req, res) => {
+    // Truy vấn SQL lấy 1 OrderLine theo id từ bảng order_line, với các trường: id, order_id, product_item_id, quantity, price, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status
+    // SELECT ol.id, ol.order_id, ol.product_item_id, ol.quantity, ol.price, p.name AS product_name, pc.category_name AS product_category, upm.provider AS payment_provider, upm.account_number AS payment_account, CONCAT(sa.street_number, ' ', sa.address_line1, ', ', sa.address_line2, ', ', sa.city, ', ', c.country_name) AS shipping_address, sm.name AS shipper, sm.price AS shipping_fee, os.status AS order_status FROM order_line AS ol JOIN product_item AS pi ON ol.product_item_id = pi.id JOIN product AS p ON pi.product_id = p.id JOIN product_category AS pc ON p.category_id = pc.id JOIN shop_order AS so ON ol.order_id = so.id JOIN user_payment_method AS upm ON so.payment_method_id = upm.id JOIN address AS sa ON so.shipping_address = sa.id JOIN shipping_method AS sm ON so.shipping_method = sm.id JOIN order_status AS os ON so.order_status = os.id JOIN country AS c ON sa.country_id = c.id WHERE ol.id = :id;
     try {
         const OrderLine = await OrderLineModel.findByPk(req.params.id);
         if (!OrderLine) {
@@ -85,6 +89,9 @@ exports.getOrderLineByID = async (req, res) => {
 
 // It's not done yet
 exports.createOrderLine = async (req, res) => {
+    // Truy vấn SQL tạo 1 OrderLine mới trong bảng order_line, với các trường: id, order_id, product_item_id, quantity, price, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status; trong đó order_id lấy từ order_id, product_item_id lấy từ product_name, product_category lấy từ product_item_id; payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status lấy từ order_id; price lấy từ product_item_id; quantity lấy từ product_item_id
+
+    // INSERT INTO order_line (id, order_id, product_item_id, quantity, price) VALUES (:id, :order_id, :product_item_id, :quantity, :price);
     try {
         const maxID = await OrderLineModel.max('id');
         const OrderLine = {
@@ -117,6 +124,8 @@ exports.createOrderLine = async (req, res) => {
 }
 
 exports.updateOrderLine = async (req, res) => {
+    // Truy vấn SQL update 1 OrderLine theo id từ bảng order_line, với các trường: id, order_id, product_item_id, quantity, price, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status; trong đó order_id lấy từ order_id, product_item_id lấy từ product_name, product_category lấy từ product_item_id; payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status lấy từ order_id; price lấy từ product_item_id; quantity lấy từ product_item_id
+    // UPDATE order_line SET order_id = ( SELECT id FROM shop_order WHERE id = :order_id ), product_item_id = ( SELECT id FROM product_item WHERE id = :product_item_id LIMIT 1 ), quantity = :quantity, price = :price WHERE id = :id;
     try {
         const OrderLine = await OrderLineModel.findByPk(req.params.id);
         if (!OrderLine) {
@@ -142,3 +151,6 @@ exports.updateOrderLine = async (req, res) => {
         });
     }
 }
+
+// Truy vấn SQL để xóa 1 OrderLine theo id từ bảng order_line
+// DELETE FROM order_line WHERE id = :id;

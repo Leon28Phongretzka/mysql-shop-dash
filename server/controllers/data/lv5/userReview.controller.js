@@ -15,6 +15,35 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllUserReview = async (req, res) => {
+    // Truy vấn SQL lấy tất cả các UserReview từ bảng user_review, với các trường: id, user_id, ordered_product_id, rating, comment, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status, email_address
+
+    // SELECT
+//     ur.id,
+//     ur.user_id,
+//     ur.ordered_product_id,
+//     ur.rating,
+//     ur.comment,
+//     p.name AS product_name,
+//     pc.category_name AS product_category,
+//     upm.provider AS payment_provider,
+//     upm.account AS payment_account,
+//     CONCAT(a.street_number, ' ', a.address_line1, ', ', a.address_line2, ', ', a.city, ', ', c.country_name) AS shipping_address,
+//     sm.name AS shipper,
+//     sm.price AS shipping_fee,
+//     os.status AS order_status,
+//     u.email_address AS email_address
+//     FROM user_review AS ur
+//     LEFT JOIN order_line AS ol ON ur.ordered_product_id = ol.id
+//     LEFT JOIN product_item AS pi ON ol.product_item_id = pi.id
+//     LEFT JOIN product AS p ON pi.product_id = p.id
+//     LEFT JOIN product_category AS pc ON p.category_id = pc.id
+//     LEFT JOIN shop_order AS so ON ol.order_id = so.id
+//     LEFT JOIN user_payment_method AS upm ON so.payment_method_id = upm.id
+//     LEFT JOIN address AS a ON so.shipping_address = a.id
+//     LEFT JOIN country AS c ON a.country_id = c.id
+//     LEFT JOIN shipping_method AS sm ON so.shipping_method = sm.id
+//     LEFT JOIN order_status AS os ON so.order_status = os.id
+//     LEFT JOIN user AS u ON ur.user_id = u.id;
     try {
         const UserReviews = await UserReviewModel.findAll();
         const UserReviewPromise = UserReviews.map(async (UserReview) => {
@@ -53,6 +82,35 @@ exports.getAllUserReview = async (req, res) => {
     }
 }
 exports.getUserReviewByID = async (req, res) => {
+    // Truy vấn SQL lấy UserReview từ bảng user_review, với các trường: id, user_id, ordered_product_id, rating, comment, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status, email_address
+    // SELECT
+    // ur.id,
+    // ur.user_id,
+    // ur.ordered_product_id,
+    // ur.rating,
+    // ur.comment,
+    // p.name AS product_name,
+    // pc.category_name AS product_category,
+    // upm.provider AS payment_provider,
+    // upm.account_number AS payment_account,
+    // CONCAT(a.street_number, ' ', a.address_line1, ', ', a.address_line2, ', ', a.city, ', ', c.country_name) AS shipping_address,
+    // sm.name AS shipper,
+    // sm.price AS shipping_fee,
+    // os.status AS order_status,
+    // u.email_address AS email_address
+    // FROM user_review AS ur
+    // LEFT JOIN order_line AS ol ON ur.ordered_product_id = ol.id
+    // LEFT JOIN product_item AS pi ON ol.product_item_id = pi.id
+    // LEFT JOIN product AS p ON pi.product_id = p.id
+    // LEFT JOIN product_category AS pc ON p.category_id = pc.id
+    // LEFT JOIN shop_order AS so ON ol.order_id = so.id
+    // LEFT JOIN user_payment_method AS upm ON so.payment_method_id = upm.id
+    // LEFT JOIN address AS a ON so.shipping_address = a.id
+    // LEFT JOIN country AS c ON a.country_id = c.id
+    // LEFT JOIN shipping_method AS sm ON so.shipping_method = sm.id
+    // LEFT JOIN order_status AS os ON so.order_status = os.id
+    // LEFT JOIN site_user AS u ON ur.user_id = u.id
+    // WHERE ur.id = :id;
     try {
         const UserReview = await UserReviewModel.findByPk(req.params.id);
         if (!UserReview) {
@@ -94,6 +152,8 @@ exports.getUserReviewByID = async (req, res) => {
 }
 
 exports.createUserReview = async (req, res) => {
+    // Truy vấn SQL tạo mới 1 UserReview từ bảng user_review, với các trường: id, user_id, ordered_product_id, rating, comment, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status, email_address
+    // INSERT INTO user_review (id, user_id, ordered_product_id, rating, comment) VALUES (:id, :user_id, :ordered_product_id, :rating, :comment);
     try {
         const maxID = await UserReviewModel.max('id');
         const UserReview = {
@@ -126,6 +186,8 @@ exports.createUserReview = async (req, res) => {
 }
 
 exports.updateUserReview = async (req, res) => {
+    // Truy vấn SQL cập nhật 1 UserReview từ bảng user_review, với các trường: id, user_id, ordered_product_id, rating, comment, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status, email_address
+    // UPDATE user_review SET user_id = :user_id, ordered_product_id = :ordered_product_id, rating = :rating, comment = :comment WHERE id = :id;
     try {
         const UserReview = await UserReviewModel.findByPk(req.params.id);
         if (!UserReview) {
@@ -154,6 +216,8 @@ exports.updateUserReview = async (req, res) => {
 }
 
 exports.deleteUserReview = async (req, res) => {
+    // Truy vấn SQL xóa 1 UserReview từ bảng user_review, với các trường: id, user_id, ordered_product_id, rating, comment, product_name, product_category, payment_provider, payment_account, shipping_address, shipper, shipping_fee, order_status, email_address
+    // DELETE FROM user_review WHERE id = :id;
     try {
         const UserReview = await UserReviewModel.findByPk(req.params.id);
         if (!UserReview) {

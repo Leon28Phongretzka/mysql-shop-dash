@@ -1759,6 +1759,11 @@ router.get('/shopping-cart-item/:id', (req, res) => {ShoppingCartItemController.
  *        in: formData
  *        required: true
  *        type: string
+ *      - name: cart_id
+ *        description: ID giỏ hàng
+ *        in: formData
+ *        required: true
+ *        type: number
  *      - name: product_item_id
  *        description: ID sản phẩm
  *        in: formData

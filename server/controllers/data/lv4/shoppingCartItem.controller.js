@@ -9,6 +9,12 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllShoppingCartItem = async (req, res) => {
+    // Truy vấn SQL lấy tất cả các ShoppingCartItem từ bảng shopping_cart_item, với các trường: id, product_item_id, quantity, user_id, product_name, product_category, email_address
+    // SELECT sci.id, sci.cart_id, sci.product_item_id, sci.quantity, sc.user_id, p.name AS product_name, pc.category_name AS product_category, u.email_address FROM shopping_cart_item AS sci JOIN product_item AS pi ON sci.product_item_id = pi.id
+    // JOIN product AS p ON pi.product_id = p.id
+    // JOIN product_category AS pc ON p.category_id = pc.id
+    // JOIN shopping_cart AS sc ON sci.cart_id = sc.id
+    // JOIN site_user AS u ON sc.user_id = u.id;
     try {
         const ShoppingCartItems = await ShoppingCartItemModel.findAll();
         const ShoppingCartItemPromise = ShoppingCartItems.map(async (ShoppingCartItem) => {
@@ -34,6 +40,13 @@ exports.getAllShoppingCartItem = async (req, res) => {
     }
 }
 exports.getShoppingCartItemByID = async (req, res) => {
+    // Truy vấn SQL lấy 1 ShoppingCartItem theo id từ bảng shopping_cart_item, với các trường: id, product_item_id, quantity, user_id, product_name, product_category, email_address
+    // SELECT sci.id, sci.cart_id, sci.product_item_id, sci.quantity, sc.user_id, p.name AS product_name, pc.category_name AS product_category, u.email_address FROM shopping_cart_item AS sci JOIN product_item AS pi ON sci.product_item_id = pi.id
+    // JOIN product AS p ON pi.product_id = p.id
+    // JOIN product_category AS pc ON p.category_id = pc.id
+    // JOIN shopping_cart AS sc ON sci.cart_id = sc.id
+    // JOIN site_user AS u ON sc.user_id = u.id
+    // WHERE sci.id = :id;
     try {
         const ShoppingCartItem = await ShoppingCartItemModel.findByPk(req.params.id);
         if (!ShoppingCartItem) {
@@ -63,13 +76,15 @@ exports.getShoppingCartItemByID = async (req, res) => {
 }
 
 exports.createShoppingCartItem = async (req, res) => {
+    // Truy vấn SQL tạo 1 ShoppingCartItem mới trong bảng shopping_cart_item, với các trường: id, product_item_id, quantity, cart_id
+    // INSERT INTO shopping_cart_item (id, product_item_id, quantity, cart_id ) VALUES (:id, :product_item_id, :quantity, (SELECT id FROM shopping_cart WHERE user_id = :user_id LIMIT 1));
     try {
         const maxID = await ShoppingCartItemModel.max('id');
         const ShoppingCartItem = await ShoppingCartItemModel.create({
             id: maxID + 1,
             product_item_id: req.body.product_item_id,
             quantity: req.body.quantity,
-            user_id: req.body.user_id,
+            cart_id: req.body.cart_id,
         });
         res.status(200).json(ShoppingCartItem);
     } catch ( err ) {
@@ -80,6 +95,8 @@ exports.createShoppingCartItem = async (req, res) => {
 }
 
 exports.updateShoppingCartItem = async (req, res) => {
+    // Truy vấn SQL cập nhật 1 ShoppingCartItem theo id trong bảng shopping_cart_item, với các trường: id, product_item_id, quantity, cart_id;
+    // UPDATE shopping_cart_item SET product_item_id = :product_item_id, quantity = :quantity, cart_id = :cart_id WHERE id = :id;
     try {
         const ShoppingCartItem = await ShoppingCartItemModel.update({
             product_item_id: req.body.product_item_id,
@@ -99,6 +116,8 @@ exports.updateShoppingCartItem = async (req, res) => {
 }
 
 exports.deleteShoppingCartItem = async (req, res) => {
+    // Truy vấn SQL xóa 1 ShoppingCartItem theo id trong bảng shopping_cart_item
+    // DELETE FROM shopping_cart_item WHERE id = :id;
     try {
         const ShoppingCartItem = await ShoppingCartItemModel.destroy({
             where: {
