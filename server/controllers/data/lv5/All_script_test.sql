@@ -24,7 +24,19 @@ INSERT INTO promotion (id, name, description, start_date, end_date, discount_rat
 SELECT * FROM shipping_method WHERE id = :id;
 
 # LV2 test
+SELECT address.*, country.country_name FROM address INNER JOIN country ON address.country_id = country.id WHERE address.id = 1;
+
+INSERT INTO address (id, unit_number, street_number, address_line1, address_line2, city, region, postal_code, country_id) VALUES (505, 123, '4', 'Apartment 4A', '', 'San Francisco', 'CA', '94105', (SELECT id FROM country WHERE country_name = 'United States' LIMIT 1));
+
 SELECT product.*, product_category.category_name FROM product INNER JOIN product_category ON product.category_id = product_category.id WHERE product.id = :id;
+
+INSERT INTO product (id, name, description, product_image, category_id)
+SELECT :id, :name, :description, :product_image, pc.id
+FROM product_category pc
+JOIN product p ON pc.category_name = :category_name
+LIMIT 1;
+
+UPDATE product p JOIN product_category pc ON p.category_id = pc.id SET p.name = :name, p.description = :description, p.product_image = :product_image, p.category_id = pc.id WHERE p.id = :id;
 
 SELECT shopping_cart.*, site_user.email_address FROM shopping_cart INNER JOIN site_user ON shopping_cart.user_id = site_user.id WHERE shopping_cart.user_id = :id LIMIT 1;
 
@@ -73,7 +85,17 @@ INSERT INTO variation_option (id, variation_id, value) VALUES (:id, (SELECT id F
 UPDATE variation_option SET variation_id = (SELECT id FROM variation WHERE name = :variation_name LIMIT 1), value = :value WHERE id = :id;
 
 # LV4 Test
-SELECT ol.id, ol.order_id, ol.product_item_id, ol.quantity, ol.price, p.name AS product_name, pc.category_name AS product_category, upm.provider AS payment_provider, upm.account_number AS payment_account, CONCAT(sa.street_number, ' ', sa.address_line1, ', ', sa.address_line2, ', ', sa.city, ', ', c.country_name) AS shipping_address, sm.name AS shipper, sm.price AS shipping_fee, os.status AS order_status FROM order_line AS ol JOIN product_item AS pi ON ol.product_item_id = pi.id JOIN product AS p ON pi.product_id = p.id JOIN product_category AS pc ON p.category_id = pc.id JOIN shop_order AS so ON ol.order_id = so.id JOIN user_payment_method AS upm ON so.payment_method_id = upm.id JOIN address AS sa ON so.shipping_address = sa.id JOIN shipping_method AS sm ON so.shipping_method = sm.id JOIN order_status AS os ON so.order_status = os.id JOIN country AS c ON sa.country_id = c.id;
+SELECT ol.id, ol.order_id, ol.product_item_id, ol.quantity, ol.price, p.name AS product_name, pc.category_name AS product_category, upm.provider AS payment_provider, upm.account_number AS payment_account, CONCAT(sa.street_number, ' ', sa.address_line1, ', ', sa.address_line2, ', ', sa.city, ', ', c.country_name) AS shipping_address, sm.name AS shipper, sm.price AS shipping_fee, os.status AS order_status 
+FROM order_line AS ol 
+JOIN product_item AS pi ON ol.product_item_id = pi.id 
+JOIN product AS p ON pi.product_id = p.id 
+JOIN product_category AS pc ON p.category_id = pc.id 
+JOIN shop_order AS so ON ol.order_id = so.id 
+JOIN user_payment_method AS upm ON so.payment_method_id = upm.id 
+JOIN address AS sa ON so.shipping_address = sa.id 
+JOIN shipping_method AS sm ON so.shipping_method = sm.id 
+JOIN order_status AS os ON so.order_status = os.id 
+JOIN country AS c ON sa.country_id = c.id;
 
 SELECT ol.id, ol.order_id, ol.product_item_id, ol.quantity, ol.price, p.name AS product_name, pc.category_name AS product_category, upm.provider AS payment_provider, upm.account_number AS payment_account, CONCAT(sa.street_number, ' ', sa.address_line1, ', ', sa.address_line2, ', ', sa.city, ', ', c.country_name) AS shipping_address, sm.name AS shipper, sm.price AS shipping_fee, os.status AS order_status FROM order_line AS ol JOIN product_item AS pi ON ol.product_item_id = pi.id JOIN product AS p ON pi.product_id = p.id JOIN product_category AS pc ON p.category_id = pc.id JOIN shop_order AS so ON ol.order_id = so.id JOIN user_payment_method AS upm ON so.payment_method_id = upm.id JOIN address AS sa ON so.shipping_address = sa.id JOIN shipping_method AS sm ON so.shipping_method = sm.id JOIN order_status AS os ON so.order_status = os.id JOIN country AS c ON sa.country_id = c.id WHERE ol.id = :id;
 
