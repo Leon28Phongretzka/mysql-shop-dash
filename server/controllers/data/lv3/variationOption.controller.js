@@ -2,6 +2,8 @@ const VariationOptionModel = require("../../../models/data_model/lv3/variationOp
 const VariationModel = require("../../../models/data_model/lv2/variation.model");
 const productCategoryModel = require("../../../models/data_model/lv1/productCategory.model");
 exports.getAllVariationOption = async (req, res) => {
+    // Truy vấn SQL lấy tất cả các VariationOption từ bảng variation_option, với các trường: id, variation_id, value, variation_name, category_name
+    // SELECT vo.id, vo.variation_id, vo.value, v.name AS variation_name, pc.category_name AS category_name FROM variation_option AS vo JOIN variation AS v ON vo.variation_id = v.id JOIN product_category AS pc ON v.category_id = pc.id;
     try {
         const variationOptions = await VariationOptionModel.findAll();
         const variationOptionPromises = variationOptions.map(async (variationOption) => {
@@ -24,6 +26,8 @@ exports.getAllVariationOption = async (req, res) => {
 }
 
 exports.getVariationOptionID = async (req, res) => {
+    // Truy vấn SQL lấy 1 VariationOption theo id từ bảng variation_option, với các trường: id, variation_id, value, variation_name, category_name
+    // SELECT vo.id, vo.variation_id, vo.value, v.name AS variation_name, pc.category_name AS category_name FROM variation_option AS vo JOIN variation AS v ON vo.variation_id = v.id JOIN product_category AS pc ON v.category_id = pc.id WHERE vo.id = :id;
     try {
         const variationOptions = await VariationOptionModel.findByPk(req.params.id);
         if (!variationOptions) {
@@ -47,6 +51,8 @@ exports.getVariationOptionID = async (req, res) => {
 }
 
 exports.createVariationOption = async (req, res) => {
+    // Truy vấn SQL tạo 1 VariationOption mới trong bảng variation_option, với các trường: id, variation_id, value, variation_name, category_name; trong đó variation_id lấy từ variation_name, category_name lấy từ variation_id
+    // INSERT INTO variation_option (id, variation_id, value) VALUES (:id, (SELECT id FROM variation WHERE name = :variation_name), :value);
     try {
         const variation = await VariationModel.findOne({
             where: {
@@ -74,6 +80,8 @@ exports.createVariationOption = async (req, res) => {
 }
 
 exports.updateVariationOption = async (req, res) => {
+    // Truy vấn SQL update 1 VariationOption theo id từ bảng variation_option, với các trường: id, variation_id, value, variation_name, category_name; trong đó variation_id lấy từ variation_name, category_name lấy từ variation_id
+    // UPDATE variation_option SET variation_id = (SELECT id FROM variation WHERE name = :variation_name LIMIT 1), value = :value WHERE id = :id;
     try {
         const variationOptions = await VariationOptionModel.findByPk(req.params.id);
         if (!variationOptions) {

@@ -1496,6 +1496,11 @@ router.get('/shop-order/:id', (req, res) => {shopOrderController.getShopOrderByI
  *        in: formData
  *        required: true
  *        type: string
+*      - name: order_status
+ *        description: trạng thái đơn hàng
+ *        in: formData
+ *        required: true
+ *        type: string
  *      - name: order_total
  *        description: tổng order
  *        in: formData

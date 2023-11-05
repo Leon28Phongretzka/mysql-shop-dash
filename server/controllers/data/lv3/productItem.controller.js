@@ -7,8 +7,8 @@ const jwtUtil = require('../../../utils/jwt.util');
 const { Op } = require("sequelize");
 
 exports.getAllProductItem = async (req, res) => {
-    // Truy vấn SQL để lấy tất cả productItem và thay thế product_id bằng tên product với product_name được lấy từ bảng product thông qua product_id
-    // SELECT product_item.*, product.name FROM product_item INNER JOIN product ON product_item.product_id = product.id ORDER BY id;
+    // Truy vấn SQL để lấy tất cả productItem và thay thế product_id bằng tên product với product_name được lấy từ bảng product thông qua product_id, product_description được lấy từ bảng product thông qua product_id, category_name được lấy từ bảng product_category thông qua category_id
+    // SELECT product_item.*, product.name, product.description, product_category.category_name FROM product_item INNER JOIN product ON product_item.product_id = product.id INNER JOIN product_category ON product.category_id = product_category.id;
     try {
         const productItems = await productItemModel.findAll();
         const productItemPromises = productItems.map(async (productItem) => {
@@ -33,7 +33,7 @@ exports.getAllProductItem = async (req, res) => {
 }
 exports.getProductItemByID = async (req, res) => {
     // Truy vấn SQL để lấy 1 productItem theo id và thay thế product_id bằng tên product với product_name được lấy từ bảng product thông qua product_id
-    // SELECT product_item.*, product.name FROM product_item INNER JOIN product ON product_item.product_id = product.id WHERE product_item.id = :id;
+    // SELECT product_item.*, product.name, product.description, product_category.category_name FROM product_item INNER JOIN product ON product_item.product_id = product.id INNER JOIN product_category ON product.category_id = product_category.id WHERE product_item.id = :id;
     try {
         const ProductItem = await productItemModel.findByPk(req.params.id);
         if (!ProductItem) {
