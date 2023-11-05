@@ -14,6 +14,8 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllPaymentType = async (req, res) => {
+    // SQL script to get all Payment Type
+    // SELECT * FROM payment_type;
     try {
         const paymentTypes = await paymentType.findAll();
         res.status(200).json(paymentTypes);

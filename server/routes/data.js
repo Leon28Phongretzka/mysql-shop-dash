@@ -413,7 +413,7 @@ router.get('/address/:id', (req, res) => {AddressController.getAddress(req, res)
  *        description: ID địa chỉ
  *        in: formData
  *        required: true
- *        type: integer
+ *        type: number
  *      - name: unit_number
  *        description: Số lượng đặt hàng
  *        in: formData

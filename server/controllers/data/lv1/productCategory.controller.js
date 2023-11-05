@@ -14,6 +14,8 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllProductCategory = async (req, res) => {
+    // SQL script to get ALl product categories
+    // SELECT * FROM product_categories;
     try {
         const productCategories = await ProductCategoryModel.findAll();
         res.status(200).json(productCategories);

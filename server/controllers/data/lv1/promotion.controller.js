@@ -15,6 +15,8 @@ exports.getMaxID = async (req, res) => {
 }
 
 exports.getAllPromotion = async (req, res) => {
+    // SQL script to get all promotion
+    // SELECT * FROM promotions;
     try {
         const promotions = await PromotionModel.findAll();
         res.status(200).json(promotions);
